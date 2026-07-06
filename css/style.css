@@ -397,6 +397,17 @@ select, .btn {
   outline: none;
 }
 
+select option {
+  background-color: #0b0f19;
+  color: var(--text);
+  font-family: var(--font-mono);
+}
+
+select:focus, .btn:focus-visible {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.25);
+}
+
 select {
   appearance: none;
   padding-right: 32px;

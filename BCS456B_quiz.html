@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BCS456B — Capacity Planning Load Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E11;
+    --panel:#11161C;
+    --panel2:#161C24;
+    --line:#232B34;
+    --text:#E6EDF3;
+    --muted:#7D8590;
+    --crit:#E5484D;
+    --crit-dim:#3A2023;
+    --warn:#F2B84B;
+    --warn-dim:#3A2F1A;
+    --info:#4B9CE2;
+    --info-dim:#1A2A3A;
+    --bonus:#3DDC84;
+    --bonus-dim:#153524;
+    --focus:#7D8590;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.02), transparent 200px),
+      var(--bg);
+    color:var(--text);
+    font-family:'Space Grotesk',sans-serif;
+    min-height:100vh;
+  }
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;}
+  ::selection{background:var(--crit);color:#000;}
+  :focus-visible{outline:2px solid var(--text);outline-offset:2px;}
+
+  .topbar{
+    border-bottom:1px solid var(--line);
+    padding:14px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    position:sticky;
+    top:0;
+    background:rgba(11,14,17,0.92);
+    backdrop-filter:blur(6px);
+    z-index:20;
+  }
+  .brand{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+  }
+  .brand .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--bonus);
+    box-shadow:0 0 8px var(--bonus);
+    display:inline-block;
+    animation:pulse 2.4s infinite ease-in-out;
+  }
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+  .brand h1{
+    font-size:16px;
+    letter-spacing:0.14em;
+    margin:0;
+    font-weight:700;
+    font-family:'JetBrains Mono',monospace;
+  }
+  .brand span.sub{
+    color:var(--muted);
+    font-size:12px;
+    font-family:'JetBrains Mono',monospace;
+  }
+  .stat-strip{
+    display:flex;
+    gap:22px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--muted);
+  }
+  .stat-strip b{color:var(--text);font-size:13px;}
+
+  .wrap{
+    max-width:920px;
+    margin:0 auto;
+    padding:24px 20px 80px;
+  }
+
+  /* Dashboard / coverage panel */
+  .panel{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:18px 20px;
+    margin-bottom:18px;
+  }
+  .panel-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:14px;
+  }
+  .panel-head h2{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+    color:var(--muted);
+    margin:0;
+    font-family:'JetBrains Mono',monospace;
+  }
+  .gauge-row{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin-bottom:16px;
+  }
+  @media(max-width:640px){.gauge-row{grid-template-columns:repeat(2,1fr);}}
+  .gauge{
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:10px 12px;
+    background:var(--panel2);
+  }
+  .gauge .label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    margin-bottom:6px;
+  }
+  .gauge .swatch{width:8px;height:8px;border-radius:2px;display:inline-block;}
+  .gauge .val{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;}
+  .gauge .bar{
+    height:5px;border-radius:3px;background:#000;margin-top:8px;overflow:hidden;
+    border:1px solid var(--line);
+  }
+  .gauge .bar > i{display:block;height:100%;border-radius:3px;transition:width .3s ease;}
+
+  details.coverage{
+    border-top:1px dashed var(--line);
+    padding-top:12px;
+  }
+  details.coverage summary{
+    cursor:pointer;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--muted);
+    letter-spacing:0.06em;
+    list-style:none;
+  }
+  details.coverage summary::-webkit-details-marker{display:none;}
+  details.coverage summary:before{content:"▸ ";}
+  details.coverage[open] summary:before{content:"▾ ";}
+  .mod-list{margin-top:12px;display:flex;flex-direction:column;gap:6px;}
+  .mod-row{
+    display:flex;align-items:center;gap:10px;
+    font-family:'JetBrains Mono',monospace;font-size:12px;
+  }
+  .mod-row .name{flex:0 0 190px;color:var(--text);}
+  .mod-row .track{flex:1;height:6px;background:#000;border:1px solid var(--line);border-radius:3px;overflow:hidden;}
+  .mod-row .track > i{display:block;height:100%;background:var(--info);}
+  .mod-row .count{flex:0 0 64px;text-align:right;color:var(--muted);}
+
+  /* Filter row */
+  .controls{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    align-items:center;
+    margin-bottom:18px;
+  }
+  select, .btn{
+    background:var(--panel2);
+    border:1px solid var(--line);
+    color:var(--text);
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    padding:9px 12px;
+    border-radius:7px;
+    cursor:pointer;
+  }
+  select{appearance:none;padding-right:28px;
+    background-image:linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+    background-position:calc(100% - 16px) center, calc(100% - 11px) center;
+    background-size:5px 5px, 5px 5px;
+    background-repeat:no-repeat;
+  }
+  .btn:hover, select:hover{border-color:var(--muted);}
+  .btn.primary{background:var(--text);color:#000;border-color:var(--text);font-weight:700;}
+  .btn.ghost{opacity:.7;}
+  .btn.ghost:hover{opacity:1;}
+
+  /* Question card */
+  .qcard{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:22px;
+  }
+  .qmeta{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+    flex-wrap:wrap;
+  }
+  .tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 8px;
+    border-radius:5px;
+    font-weight:700;
+  }
+  .tag.C{background:var(--crit-dim);color:var(--crit);}
+  .tag.W{background:var(--warn-dim);color:var(--warn);}
+  .tag.I{background:var(--info-dim);color:var(--info);}
+  .tag.B{background:var(--bonus-dim);color:var(--bonus);}
+  .qmeta .idx{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);}
+  .qmeta .mod{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-left:auto;}
+
+  .qtext{font-size:18px;line-height:1.5;margin:0 0 18px;font-weight:500;}
+
+  .opts{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+  .opt{
+    text-align:left;
+    background:var(--panel2);
+    border:1px solid var(--line);
+    color:var(--text);
+    padding:12px 14px;
+    border-radius:8px;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:14.5px;
+    cursor:pointer;
+    display:flex;
+    gap:10px;
+  }
+  .opt .letter{font-family:'JetBrains Mono',monospace;color:var(--muted);}
+  .opt:hover:not(.locked){border-color:var(--muted);}
+  .opt.correct{border-color:var(--bonus);background:var(--bonus-dim);}
+  .opt.wrong{border-color:var(--crit);background:var(--crit-dim);}
+  .opt.reveal-correct{border-color:var(--bonus);}
+  .opt.locked{cursor:default;}
+
+  .foot-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .result-note{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--muted);}
+  .result-note.ok{color:var(--bonus);}
+  .result-note.bad{color:var(--crit);}
+
+  .empty{
+    text-align:center;
+    padding:60px 20px;
+    color:var(--muted);
+    font-family:'JetBrains Mono',monospace;
+  }
+  .empty .big{font-size:34px;color:var(--bonus);margin-bottom:10px;}
+
+  footer.note{
+    max-width:920px;margin:0 auto;padding:0 20px 40px;
+    color:var(--muted);font-size:11.5px;font-family:'JetBrains Mono',monospace;line-height:1.6;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <span class="dot"></span>
+    <h1>BCS456B</h1>
+    <span class="sub">// capacity planning for it — load test console</span>
+  </div>
+  <div class="stat-strip">
+    <div>ANSWERED <b id="statAnswered">0/0</b></div>
+    <div>ACCURACY <b id="statAcc">—</b></div>
+    <div>MODE <b id="statMode">RANKED</b></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="panel">
+    <div class="panel-head"><h2>System Load Overview</h2></div>
+    <div class="gauge-row" id="gaugeRow"></div>
+    <details class="coverage">
+      <summary>Coverage breakdown — modules answered vs. remaining</summary>
+      <div class="mod-list" id="modList"></div>
+    </details>
+  </div>
+
+  <div class="controls">
+    <select id="tierFilter">
+      <option value="RANKED">All — ranked (Critical → Info)</option>
+      <option value="C">Critical only (highest exam-priority)</option>
+      <option value="W">Warning only (medium priority)</option>
+      <option value="I">Info only (low priority / trivia)</option>
+      <option value="B">Bonus only (extra generated questions)</option>
+    </select>
+    <select id="modFilter">
+      <option value="ALL">All modules</option>
+    </select>
+    <button class="btn" id="shuffleBtn">Shuffle</button>
+    <button class="btn ghost" id="resetBtn">Reset progress</button>
+  </div>
+
+  <div id="quizArea"></div>
+
+</div>
+
+<footer class="note">
+  Priority tiers are ranked by exam relevance and conceptual weight, not by literal duplicate count — these source PDFs cover one pass of Module 1–5 plus a short static-page sample, not multiple years of past papers, so there wasn't repeat-frequency data to count. "Bonus" questions (Little's Law, Amdahl's Law, queuing theory, SRE golden signals, etc.) are generated to fill gaps the source material doesn't cover. Progress resets on reload — nothing is saved.
+</footer>
+
+<script>
+// ---------------------------------------------------------------
+// Data: C = Critical (high exam-priority), W = Warning (medium),
+// I = Info (low priority / trivia), B = Bonus (generated, not in source)
+// ---------------------------------------------------------------
+const QUESTIONS = [
+// ===== Static Pages sample doc =====
+{m:"Static Pages (sample)", t:"C", q:"In a virtualized environment, to handle erratic traffic, one approach is to convert a dynamic page to a static HTML page.", o:["True","False"], a:0},
+{m:"Static Pages (sample)", t:"W", q:"Converting a dynamic page to a static web page is called:", o:["Baking a web page","Conversion","Compromise","None of these"], a:1},
+{m:"Static Pages (sample)", t:"W", q:"Which of the following is incorrect about static pages?", o:["They don't initiate database look-ups","They cannot be served very fast","They are easy to cache","All of the above"], a:1},
+
+// ===== Module 1: Foundations =====
+{m:"M1: Foundations", t:"I", q:"What was the primary focus of the book's first edition?", o:["Capacity planning for cloud environments","The transition to serverless architectures","Use of public clouds","Forecasting IT infrastructure spending"], a:2},
+{m:"M1: Foundations", t:"C", q:"What is a significant benefit of serverless architectures?", o:["Reduced vendor dependencies","Reduced operational cost and complexity","Improved system performance at peak times","Increased availability of digital media"], a:1},
+{m:"M1: Foundations", t:"W", q:"Which metric is NOT part of defining an application's load and capacity requirements?", o:["Response times","Consumable capacity","Peak-driven processing","User satisfaction scores"], a:3},
+{m:"M1: Foundations", t:"C", q:"What is an example of peak-driven processing given in the text?", o:["Increased mobile traffic","Daily routine operations of a web app","Spike in tweets during the Super Bowl","Continuous monitoring of system performance"], a:2},
+{m:"M1: Foundations", t:"C", q:"What is a challenge of capacity planning in datacenters (vs. cloud)?", o:["Short supply-chain cycles","High cost of elasticity","Long supply-chain cycles and configuration overhead","Ease of horizontal scaling"], a:2},
+{m:"M1: Foundations", t:"W", q:"Why is 'quick and dirty' math important in capacity planning?", o:["It provides precise calculations","It connects the dots between inputs and makes best guesses for the future","It eliminates the need for horizontal scaling","It ensures complete, unbiased information"], a:1},
+{m:"M1: Foundations", t:"C", q:"What is a potential risk of lacking proper detail in cloud capacity planning?", o:["Over-provisioning leading to increased costs","Under-provisioning leading to poor user experience","Long supply-chain cycles","Difficulty setting up autoscaling policies"], a:0},
+{m:"M1: Foundations", t:"W", q:"As functionality moves from hardware to software, what should the capacity-planning process include?", o:["Increased server capacity","Autoscaling policies","Detailed user satisfaction surveys","Software components"], a:3},
+{m:"M1: Foundations", t:"C", q:"What are the three types of system failures crucial for capacity planning?", o:["Software bugs, hardware malfunctions, network outages","SLA violations, graceful degradation, true system failure","High latency, data loss, security breaches","User errors, system overloads, database corruption"], a:1},
+{m:"M1: Foundations", t:"C", q:"What does 'graceful degradation' refer to?", o:["Complete system shutdown","Slightly reduced performance under increased load","Sudden failure without warning","Manual intervention to prevent failure"], a:1},
+{m:"M1: Foundations", t:"W", q:"Why tie server statistics to actual site or mobile app metrics?", o:["To reduce hardware upgrades","To better understand and track how capacity changes over time","To ensure data privacy","To simplify architecture"], a:1},
+{m:"M1: Foundations", t:"W", q:"What's crucial when deciding where to focus priority attention in capacity planning?", o:["Number of servers","Cost of hardware","Features that tax capacity more than others","Total data storage capacity"], a:2},
+{m:"M1: Foundations", t:"W", q:"How does tying system stats to business metrics help non-technical stakeholders?", o:["Reduces system complexity","Makes it easier to secure funding for hardware/software","Helps find software bugs","Ensures legal compliance"], a:1},
+{m:"M1: Foundations", t:"C", q:"What is the primary goal of capacity planning?", o:["Reduce operational footprint and improve resource utilization","Deliver the best end-user experience","Ensure all systems run at maximum capacity","Minimize technology investment costs"], a:1},
+{m:"M1: Foundations", t:"C", q:"What approach manages unexpected traffic spikes without always running max capacity?", o:["Reducing active servers","Queuing and caching-based approaches","Decreasing quality of service","Limiting number of users"], a:1},
+{m:"M1: Foundations", t:"W", q:"Why is collaboration with product and engineering teams crucial in capacity planning?", o:["Reduce overall workload","Align capacity requirements with roadmaps and predict needs accurately","Minimize new hardware","Ensure system security"], a:1},
+{m:"M1: Foundations", t:"C", q:"What's a risk of not having adequate capacity ready during traffic spikes?", o:["Increased operational costs","Improved user experience","SLA violations and adverse user-experience impact","Reduced data redundancy"], a:2},
+{m:"M1: Foundations", t:"I", q:"What's the purpose of using graphs and measurement tools in capacity planning?", o:["Simplify system architecture","Visually represent performance and assist decision-making","Reduce need for technical expertise","Limit data collected"], a:1},
+{m:"M1: Foundations", t:"C", q:"In cloud infrastructure, what does 'cloud jail' refer to?", o:["A security issue trapping data","Excessive cloud spending and dependence on the provider","Cloud service unavailability from downtime","Restriction to a single geographic location"], a:1},
+{m:"M1: Foundations", t:"I", q:"What advantage do smaller companies have in procurement vs. larger companies?", o:["Better bulk-buying prices","Faster procurement due to less cumbersome approval","More vendor negotiating power","Access to more advanced technology"], a:1},
+{m:"M1: Foundations", t:"W", q:"What is the primary goal of performance tuning?", o:["Add new hardware/software","Optimize the existing system for better performance","Predict future requirements from current usage","Benchmark in artificial environments"], a:1},
+{m:"M1: Foundations", t:"W", q:"Why should capacity planning be based on real-world observations?", o:["Theoretical measurements are always inaccurate","Empirical observations give more relevant planning data","Benchmarking tools are outdated","It's a cloud-provider requirement"], a:1},
+{m:"M1: Foundations", t:"I", q:"What's a key challenge for web operations with user-generated content?", o:["Predicting growth patterns due to user control over content","Ensuring data security","Maintaining design aesthetics","Integrating third-party services"], a:0},
+{m:"M1: Foundations", t:"C", q:"In the butcher-in-San-Francisco example, what's the preferred solution for increasing capacity?", o:["Tuning existing trucks to go faster","Reducing the speed limit","Purchasing more trucks","Changing the route"], a:2},
+{m:"M1: Foundations", t:"W", q:"How does architecture impact capacity management?", o:["Determines total cost of ownership","Affects how easily/flexibly you can add or subtract capacity","Dictates physical data-center location","Influences visual design"], a:1},
+{m:"M1: Foundations", t:"W", q:"Why monitor API usage in web services?", o:["Ensure coding-standard compliance","Watch for emerging patterns and prevent abuse","Track API popularity","Maintain aesthetic quality"], a:1},
+{m:"M1: Foundations", t:"W", q:"What's the relationship between performance tuning and capacity planning?", o:["Same process, different names","Different goals, but they affect each other","Capacity planning always follows performance tuning","Performance tuning is unnecessary if capacity planning is correct"], a:1},
+{m:"M1: Foundations", t:"C", q:"In the butcher example, what should the focus be when determining capacity needs?", o:["Enhancing speed of existing resources","Acquiring additional resources","Reducing demand","Changing the business model"], a:1},
+
+// ===== Module 2: Monitoring & Metrics =====
+{m:"M2: Monitoring", t:"W", q:"Which of these is used in distributed monitoring software?", o:["Gomez","Ganglia","Elastra","None of the above"], a:1},
+{m:"M2: Monitoring", t:"W", q:"What's the primary purpose of capacity tracking tools?", o:["Generate availability alerts","Automatically and routinely measure server behavior over time","Manage network configurations","Install/update software"], a:1},
+{m:"M2: Monitoring", t:"C", q:"Which of the following is NOT typically used for load testing?", o:["Loadrunner","JMeter","Iago","Grafana"], a:3},
+{m:"M2: Monitoring", t:"C", q:"What's a common database format used by metric-aggregation servers for time-series data?", o:["SQL Database","NoSQL Database","Round-Robin Database (RRD)","Hierarchical Database"], a:2},
+{m:"M2: Monitoring", t:"C", q:"Which tool is specifically designed for querying and visualizing time-series operational metrics?", o:["Ganglia","Graphite","Grafana","Cacti"], a:2},
+{m:"M2: Monitoring", t:"W", q:"Which daemon periodically collects system and application performance metrics?", o:["Riemann","Datadog","collectd","Sematext"], a:2},
+{m:"M2: Monitoring", t:"W", q:"What's the main advantage of RRDTool for storing system/network data?", o:["Stores unlimited data without loss","Assumes interest in fine detail only for the recent past","Real-time data analysis tool","Primarily for alert generation"], a:1},
+{m:"M2: Monitoring", t:"W", q:"What's the role of the agent in most metric collection systems?", o:["Display metrics in various forms","Periodically collect data and send a summary to the aggregation server","Manage network configurations","Handle authentication/authorization"], a:1},
+{m:"M2: Monitoring", t:"W", q:"Why might storing long periods of operations data not be useful?", o:["It's costly","It can misguide decisions due to data staleness","It's illegal long-term","It takes too long to analyze"], a:1},
+{m:"M2: Monitoring", t:"C", q:"What protocol is commonly used for gathering metrics from networking/server equipment?", o:["HTTP","FTP","SNMP","TCP/IP"], a:2},
+{m:"M2: Monitoring", t:"C", q:"What's the primary reason for using load balancers in web operations?", o:["Establish secure connections","Distribute load among pools/clusters of machines","Manage database queries","Monitor network traffic"], a:1},
+{m:"M2: Monitoring", t:"W", q:"What's the primary reason for collecting application-level metrics?", o:["Monitor CPU/disk on a single server","Provide a comprehensive view of the entire system's performance","Measure network latency","Track concurrent users"], a:1},
+{m:"M2: Monitoring", t:"W", q:"Which is NOT an example of an application-level metric?", o:["Tweets per minute","Messages per minute","CPU usage per server","Photos uploaded per minute"], a:2},
+{m:"M2: Monitoring", t:"W", q:"What's a key benefit of tracking application-level metrics over server-specific ones?", o:["Easier to collect","Provide insight into business and financial impacts","Less error-prone","Require less storage"], a:1},
+{m:"M2: Monitoring", t:"I", q:"Which storage analogy is used to explain data storage considerations?", o:["A bucket of sand","A box of chocolates","A glass of water","A balloon"], a:2},
+{m:"M2: Monitoring", t:"W", q:"What storage type has 'large, slow, inexpensive disks'?", o:["SSDs","SAS drives","SCSI drives","ATA/SATA drives"], a:3},
+{m:"M2: Monitoring", t:"W", q:"Which metric is NOT typically used to compare HDD performance?", o:["Sustained transfer rate","Average latency","Network bandwidth","Cache buffer size"], a:2},
+{m:"M2: Monitoring", t:"W", q:"What key metric predicts when more storage hardware must be ordered?", o:["Total disk space consumption over time","File accesses per minute","Disk I/O ops per second","CPU utilization on storage servers"], a:0},
+{m:"M2: Monitoring", t:"I", q:"In the Flickr example, which days were peak periods for photo uploads?", o:["Fridays","Mondays","Sundays","Saturdays"], a:2},
+{m:"M2: Monitoring", t:"W", q:"What's the main reason for setting retention policies on long-term data storage?", o:["Increase retrieval speed","Reduce storage costs","Improve data accuracy","Enhance server performance"], a:1},
+{m:"M2: Monitoring", t:"W", q:"Which tool is NOT used for measuring storage performance?", o:["Hard Disk Sentinel","IOBench","ATTO Disk Benchmark","Wireshark"], a:3},
+{m:"M2: Monitoring", t:"C", q:"Which metric is important to track with any caching software?", o:["Total server uptime","Database query execution time","Cache hit ratio","Number of CPU cores"], a:2},
+{m:"M2: Monitoring", t:"C", q:"What defines the capacity ceiling for a cache with a small or slowly increasing working set?", o:["CPU usage","Hit ratio","Disk I/O utilization","Network usage"], a:1},
+{m:"M2: Monitoring", t:"W", q:"What's used as a guide to determine the maximum performance of a caching hardware platform?", o:["Memory usage","Cache size","Hit ratio","Disk I/O wait"], a:2},
+{m:"M2: Monitoring", t:"I", q:"What's identified as the peak resource metric for a Squid caching server?", o:["CPU usage","Memory usage","Disk I/O wait","Network usage"], a:2},
+{m:"M2: Monitoring", t:"I", q:"What's the relationship between photo processing rates and CPU utilization?", o:["Linear","Exponential","Inverse","No correlation"], a:0},
+{m:"M2: Monitoring", t:"C", q:"What's the purpose of rate-limiting API calls?", o:["Increase API usage","Decrease API usage","Prevent abuse and ensure fair usage","Track usage for billing"], a:2},
+
+// ===== Module 3: Requirements, SLAs & Architecture =====
+{m:"M3: SLAs & Architecture", t:"W", q:"Which are types of requirements/capacity goals interrelated with performance, availability, and reliability?", o:["External service monitoring","Business requirements","User expectations","All of the above"], a:3},
+{m:"M3: SLAs & Architecture", t:"W", q:"Which metrics do commercial services use to monitor site performance?", o:["Page load time","Time to first byte (TTFB)","SSL time","All of the above"], a:3},
+{m:"M3: SLAs & Architecture", t:"W", q:"Why understand what monitoring services measure and how to interpret the numbers?", o:["Enforce SLAs with the statistics","Be aware of how pages are requested","Determine if they simulate human users","All of the above"], a:3},
+{m:"M3: SLAs & Architecture", t:"I", q:"What should be considered when using a monitoring service?", o:["Whether it simulates human users","If it caches like a browser","If time is network transfer vs. server time","All of the above"], a:3},
+{m:"M3: SLAs & Architecture", t:"I", q:"Which enterprise-level monitoring service is mentioned in the text?", o:["PingDom","SiteUptime","Keynote","Alertra"], a:2},
+{m:"M3: SLAs & Architecture", t:"W", q:"What can induce a performance penalty or affect availability in a distributed database?", o:["Caching objects","Guaranteeing consistency","User expectations","Network transfer time"], a:1},
+{m:"M3: SLAs & Architecture", t:"C", q:"What is an SLA primarily used for in a business context?", o:["Define software requirements","Make business people comfortable and establish performance metrics","Outline project deadlines","Describe company policies"], a:1},
+{m:"M3: SLAs & Architecture", t:"W", q:"Why do businesses tie revenue streams to unfettered API access?", o:["Ensure security","Guarantee availability and performance of the API","Facilitate user registration","Manage marketing efforts"], a:1},
+{m:"M3: SLAs & Architecture", t:"W", q:"Which metrics are proposed to quantify perceived performance of a site/app?", o:["Speed index","Render start","DOM interactive","All of the above"], a:3},
+{m:"M3: SLAs & Architecture", t:"C", q:"Why is root-cause analysis of perceived slowness easier in monolithic architectures than in SOA/MSA?", o:["Monolithic architectures are more modern","Monolithic architectures use more third-party vendors","SOA/MSA don't use high-quality images","SOA/MSA have complex interactions between microservices"], a:3},
+{m:"M3: SLAs & Architecture", t:"I", q:"In the shipping-company example, what API call rate might the contract permit?", o:["1 call/minute","10 calls/second","5 calls/minute","20 calls/second"], a:1},
+{m:"M3: SLAs & Architecture", t:"I", q:"Which is NOT a User Timing 'Standard Mark Name'?", o:["mark_fully_loaded","mark_time_to_user_action","mark_page_weight","mark_above_the_fold"], a:2},
+{m:"M3: SLAs & Architecture", t:"W", q:"When might a website reach intolerable latency?", o:["At low traffic volumes","When server CPU is underutilized","At high traffic, before system-level metrics raise a flag","When no third-party services are used"], a:2},
+{m:"M3: SLAs & Architecture", t:"C", q:"What does an SLA typically cover for websites?", o:["Security and UI design","Availability and performance","Marketing and sales","Development and testing"], a:1},
+{m:"M3: SLAs & Architecture", t:"C", q:"What does a 99.9% uptime SLA mean in allowable monthly downtime?", o:["10 minutes","30 minutes","43.2 minutes","60 minutes"], a:2},
+{m:"M3: SLAs & Architecture", t:"C", q:"What's the acceptable downtime per year for a 99.99% SLA?", o:["8h 45m 36s","52m 33s","5m 15s","32 seconds"], a:1},
+{m:"M3: SLAs & Architecture", t:"C", q:"What term refers to an availability of 99.999%?", o:["Three-nines","Four-nines","Five-nines","Six-nines"], a:2},
+{m:"M3: SLAs & Architecture", t:"C", q:"If a site generates $3,000/minute in sales, how much revenue could be lost in 10 minutes of downtime (no recovery)?", o:["$30,000","$15,000","$45,000","$3,000"], a:0},
+{m:"M3: SLAs & Architecture", t:"W", q:"What might be a more realistic impact of a brief service outage on revenue?", o:["Immediate loss with no recovery","Increased revenue after the outage","Customers pick up where they left off — minimal earnings impact","Permanent loss of all potential sales"], a:2},
+{m:"M3: SLAs & Architecture", t:"C", q:"What's a common usage of the term 'five-nines' in SLA discussions?", o:["Describe a feature set","Indicate high availability of a site/system","Refer to number of servers","Measure bandwidth capacity"], a:1},
+{m:"M3: SLAs & Architecture", t:"W", q:"What's the primary purpose of architecture in backend systems?", o:["Design the layout of backend pieces for capacity planning","Enhance security","Reduce hardware cost","Simplify the UI"], a:0},
+{m:"M3: SLAs & Architecture", t:"W", q:"Why should architecture split easily into parts performing discrete tasks?", o:["Reduce power consumption","Facilitate measurement and rapid response to changing conditions","Improve aesthetic design","Increase server count"], a:1},
+{m:"M3: SLAs & Architecture", t:"C", q:"What's a key benefit of Microservices Architecture (MSA)?", o:["Increases system complexity","Allows quicker changes in response to bugs/feature requests","Reduces need for monitoring","Eliminates need for containerization"], a:1},
+{m:"M3: SLAs & Architecture", t:"W", q:"In a database-driven web example, what's the main difficulty of web server + database on the same hardware?", o:["Increased security risks","Difficulty distinguishing stats for different components","Higher maintenance cost","Lower overall performance"], a:1},
+{m:"M3: SLAs & Architecture", t:"W", q:"What should be measured to decide when to add capacity to a split architecture?", o:["User logins per hour","Web page size","Impact of increased QPS on disk, I/O wait, RAM, and CPU","Frequency of software updates"], a:2},
+{m:"M3: SLAs & Architecture", t:"C", q:"Which metric measures web server performance?", o:["User satisfaction rate","Number of software bugs","Requests-per-second","Number of user reviews"], a:2},
+{m:"M3: SLAs & Architecture", t:"C", q:"What is the 'ceiling' in architecture and capacity planning?", o:["Max number of users a system can handle","The critical resource level that can't be crossed without failure/SLA violation","Highest security level implemented","Total cost of running the system"], a:1},
+{m:"M3: SLAs & Architecture", t:"I", q:"Why do public clouds offer a wide range of instance types?", o:["Cater to different budgets","Provide a variety of OSes","Different services exert different resource pressure","Offer various security levels"], a:2},
+{m:"M3: SLAs & Architecture", t:"C", q:"What's the purpose of determining the ceiling for each piece of architecture?", o:["Find maximum revenue potential","Understand when to upgrade hardware","Prevent failures/SLA violations by not exceeding resource limits","Calculate total system cost"], a:2},
+{m:"M3: SLAs & Architecture", t:"W", q:"What does the 'small pieces, loosely joined' theory suggest?", o:["Combine all services into one large service","Divide labor into smaller, independent, loosely connected units","Reduce the number of servers","Simplify the UI"], a:1},
+{m:"M3: SLAs & Architecture", t:"I", q:"What can simple architectural changes help you understand?", o:["Total cost of ownership","Security vulnerabilities","How capacity is being used for different purposes","User satisfaction rate"], a:2},
+{m:"M3: SLAs & Architecture", t:"W", q:"Armed with current ceilings, what can you begin to assemble?", o:["A new UI","A security plan","The capacity plan","A marketing strategy"], a:2},
+{m:"M3: SLAs & Architecture", t:"C", q:"What is vertical scaling?", o:["Adding more servers to share load","Increasing resources within a single server","Using cloud services for extra capacity","Reducing the number of servers"], a:1},
+{m:"M3: SLAs & Architecture", t:"C", q:"What is horizontal scaling?", o:["Adding more resources to a single server","Decreasing server load by reducing traffic","Adding more servers to share the load","Using more powerful servers"], a:2},
+{m:"M3: SLAs & Architecture", t:"C", q:"What is diagonal scaling?", o:["Vertically scaling horizontally scaled nodes","Scaling only CPU","Scaling only memory","Combining vertical and horizontal scaling on new servers"], a:0},
+{m:"M3: SLAs & Architecture", t:"W", q:"What's a potential disadvantage of relying solely on vertical scaling?", o:["Increased complexity managing multiple servers","Higher costs and risk of a single point of failure","Difficulty measuring individual server performance","Lower CPU/memory utilization"], a:1},
+{m:"M3: SLAs & Architecture", t:"I", q:"In the Yahoo! example, how many dual-quad-core machines replaced 67 dual-CPU machines?", o:["20","18","15","25"], a:1},
+{m:"M3: SLAs & Architecture", t:"I", q:"What was the primary benefit of diagonal scaling in the Yahoo! example?", o:["Decreased disk usage","Increased network bandwidth","Reduced load average and power consumption","Improved security"], a:2},
+{m:"M3: SLAs & Architecture", t:"C", q:"What does 'SPOF' stand for?", o:["Single Point of Failure","Scalable Point of Function","Standard Protocol of Functionality","System Performance Optimization Framework"], a:0},
+{m:"M3: SLAs & Architecture", t:"W", q:"Why is horizontal scaling considered advantageous for web applications?", o:["Increases cost efficiency of vertical scaling","Allows easy synchronization between nodes","Handles various levels of database abstraction/distribution","Simplifies security management"], a:2},
+{m:"M3: SLAs & Architecture", t:"C", q:"What does Disaster Recovery (DR) primarily focus on?", o:["Enhancing website security","Saving business operations after a catastrophe","Improving website performance","Reducing server costs"], a:1},
+{m:"M3: SLAs & Architecture", t:"W", q:"Which is NOT typically considered a catastrophe for DR purposes?", o:["Datacenter power outages","Earthquakes","Single server failure","Cooling outages"], a:2},
+{m:"M3: SLAs & Architecture", t:"C", q:"DR is part of which larger logistical plan?", o:["Vertical Scaling","Business Continuity Planning (BCP)","Capacity Management","Horizontal Scaling"], a:1},
+{m:"M3: SLAs & Architecture", t:"W", q:"What's a common solution for ensuring Disaster Recovery?", o:["Increase resources within a single server","Deploy complete architectures in multiple physical locations","Use only cloud services","Reduce number of servers"], a:1},
+{m:"M3: SLAs & Architecture", t:"W", q:"What's a significant concern when implementing DR plans?", o:["Simplifying code deployment","Multiplying infrastructure costs","Enhancing server performance","Reducing network bandwidth"], a:1},
+{m:"M3: SLAs & Architecture", t:"W", q:"Why is recognizing trends important for capacity planning?", o:["Reduce server costs","Identify the fastest servers","Understand resource needs and recurring patterns over time","Minimize network traffic"], a:2},
+{m:"M3: SLAs & Architecture", t:"I", q:"What can historical capacity data help you analyze?", o:["Hardware compatibility","Resource trends and recurring patterns","Server locations","Network speed"], a:1},
+{m:"M3: SLAs & Architecture", t:"C", q:"What's the fundamental principle of capacity planning mentioned in the text?", o:["Estimating server costs","Using ceiling values and historical data for predictions","Reducing hardware redundancy","Increasing network speed"], a:1},
+{m:"M3: SLAs & Architecture", t:"W", q:"What does adding a trendline in Excel help with?", o:["Reducing server load","Forecasting future data from historical trends","Minimizing network traffic","Increasing storage capacity"], a:1},
+{m:"M3: SLAs & Architecture", t:"W", q:"What does the process of curve fitting involve?", o:["Finding a mathematical equation that mimics the data","Reducing the number of servers","Enhancing network speed","Increasing CPU performance"], a:0},
+{m:"M3: SLAs & Architecture", t:"I", q:"What metric was used to predict disk I/O wait times for databases at Flickr?", o:["Number of users","Number of photos","Ratio of photos-to-users","Server uptime"], a:2},
+{m:"M3: SLAs & Architecture", t:"C", q:"What architectural change at Flickr helped manage growing data load?", o:["Implementing a monolithic database","Increasing server CPU capacity","Sharding the database","Reducing network bandwidth"], a:2},
+{m:"M3: SLAs & Architecture", t:"W", q:"What's the danger of making forecasts with small datasets?", o:["Lack of accuracy and potential seasonal variations","Increased network traffic","Reduced server performance","Higher hardware costs"], a:0},
+{m:"M3: SLAs & Architecture", t:"I", q:"What's one advantage of using Excel macros for automating forecasting?", o:["Reducing server maintenance","Integrating forecasts into dashboards/databases","Increasing CPU performance","Minimizing network traffic"], a:1},
+{m:"M3: SLAs & Architecture", t:"I", q:"What's the primary purpose of the open-source program fityk?", o:["Enhancing server speed","Curve-fitting equations to arbitrary data","Reducing data storage","Increasing network bandwidth"], a:1},
+
+// ===== Module 4: Procurement, Trends & Configuration =====
+{m:"M4: Procurement & Config", t:"C", q:"What is the procurement pipeline?", o:["The process of obtaining new capacity","The process of developing new software","The process of hiring new employees","The process of marketing new products"], a:0},
+{m:"M4: Procurement & Config", t:"C", q:"What's a significant challenge in the procurement process for large organizations?", o:["Quick delivery times","Long approval times for purchasing hardware","Lack of developers","Insufficient marketing strategies"], a:1},
+{m:"M4: Procurement & Config", t:"W", q:"What metric is critical to watch when ordering equipment?", o:["CPU usage","Memory allocation","Procurement time","Network speed"], a:2},
+{m:"M4: Procurement & Config", t:"C", q:"What is Just-in-Time (JIT) inventory practice?", o:["Maintaining large inventories for availability","Ordering and stocking parts only as needed","Increasing storage capacity before it's needed","Reducing the number of suppliers"], a:1},
+{m:"M4: Procurement & Config", t:"W", q:"Why might startups order servers out of fear?", o:["Reduce operational costs","Ensure enough capacity when launching new products","Improve code quality","Optimize marketing efforts"], a:1},
+{m:"M4: Procurement & Config", t:"C", q:"What's one benefit of using memcached in web applications?", o:["Increasing database query times","Reducing load on database servers","Increasing storage costs","Slowing down client response time"], a:1},
+{m:"M4: Procurement & Config", t:"W", q:"What can long-term traffic-pattern trends help inform?", o:["Immediate hardware needs","Long-term decisions and site strategy","Short-term marketing efforts","Daily operational tasks"], a:1},
+{m:"M4: Procurement & Config", t:"W", q:"What's a typical daily traffic pattern for a US web server?", o:["Rises slowly in morning, peaks in afternoon, drops overnight","Constant throughout the day","Drops in morning, rises in evening","Peaks overnight, drops during the day"], a:0},
+{m:"M4: Procurement & Config", t:"W", q:"What could be a side effect of deploying memcached?", o:["Decreased web server load","Increased web server capacity issues","Slower user response times","Reduced database query speeds"], a:1},
+{m:"M4: Procurement & Config", t:"W", q:"Why is understanding user behavior important in capacity planning?", o:["Determines company financial health","Provides valuable data for predicting future demand","Ensures better marketing","Reduces need for tech support"], a:1},
+{m:"M4: Procurement & Config", t:"W", q:"What's the relationship between capacity planning and product management?", o:["Completely independent","Product management develops ideas; capacity planning only maintains infrastructure","Both use data for forecasting and should align","Capacity planning relies only on historical data"], a:2},
+{m:"M4: Procurement & Config", t:"W", q:"What's a best practice for capacity planners regarding product management?", o:["Isolate to avoid interference","Develop an ongoing conversation with product management","Rely solely on historical data","Avoid discussing new features"], a:1},
+{m:"M4: Procurement & Config", t:"W", q:"How often should forecasts be reviewed for accuracy?", o:["Monthly","Bi-annually","Weekly or even daily","Annually"], a:2},
+{m:"M4: Procurement & Config", t:"W", q:"What should be done if hardware limitations change?", o:["Continue using old ceilings","Update the metric used to determine the ceiling","Ignore changes until next review","Focus only on software improvements"], a:1},
+{m:"M4: Procurement & Config", t:"W", q:"What seasonal variation is mentioned in the text?", o:["Increased usage during summer holidays","Decreased usage on weekdays","Increased usage at the start of college in fall","Decreased usage during Nov/Dec holidays"], a:2},
+{m:"M4: Procurement & Config", t:"W", q:"What effect do seasonal variations have on forecasting?", o:["Simplify forecasting","Make forecasting unnecessary","Influence how wide or narrow the forecasting window should be","Reduce need for hardware upgrades"], a:2},
+{m:"M4: Procurement & Config", t:"C", q:"What's a key goal of automated deployment and configuration tools?", o:["Increase time to provision new capacity","Minimize time to provision new capacity","Increase hardware diversity","Decentralize configuration management"], a:1},
+{m:"M4: Procurement & Config", t:"W", q:"What advantage does a centralized configuration/management environment provide?", o:["Increases infrastructure complexity","Makes replication and backup of files easier","Eliminates need for version control","Allows multiple servers to run config tasks independently"], a:1},
+{m:"M4: Procurement & Config", t:"C", q:"What's the 'holy grail' of deployment systems?", o:["Admins manually install software on new servers","New servers automatically start working without admin intervention","Keep hardware inventory distributed","Perform config changes directly on individual servers"], a:1},
+{m:"M4: Procurement & Config", t:"W", q:"What's a potential hindrance of disparate software configs across cluster nodes?", o:["Makes the system easier to optimize","Limits performance optimization","Simplifies troubleshooting","Eliminates need for centralized management"], a:1},
+{m:"M4: Procurement & Config", t:"C", q:"What's an advantage of image-based systems for OS installation?", o:["Greater accountability for installed files","Faster installation process","Uses package management tools","More complex to manage"], a:1},
+{m:"M4: Procurement & Config", t:"C", q:"What does an Amazon Machine Image (AMI) include?", o:["Only the OS","Only application servers","Template for root volume, launch permissions, and block device mapping","Template for root volume and app servers only"], a:2},
+{m:"M4: Procurement & Config", t:"W", q:"What is the role of a client process in a typical configuration management system?", o:["Manually request configuration updates","Periodically poll the server for new configurations","Replace the server in case of failure","Store all configurations locally"], a:1},
+{m:"M4: Procurement & Config", t:"W", q:"In configuration management, what is a 'role'?", o:["A particular type of machine performing a specific task","A collection of unrelated software/configs","A single server dedicated to one unique task","A temporary testing setting"], a:0},
+{m:"M4: Procurement & Config", t:"I", q:"Why is it beneficial to identify services common to multiple roles?", o:["Create redundant configuration routines","Simplify deploying new roles by reusing existing configurations","Ensure each role is unique/independent","Avoid using common configurations"], a:1},
+
+// ===== Module 5: Virtualization & Cloud =====
+{m:"M5: Virtualization & Cloud", t:"C", q:"What's a primary advantage of server virtualization?", o:["Direct hardware control","Increased physical server count","Efficient resource utilization","Simplified network configurations"], a:2},
+{m:"M5: Virtualization & Cloud", t:"C", q:"What's a key benefit of migrating guest OS instances in virtualization?", o:["Improved network performance","Enhanced application compatibility","Fault tolerance and hardware-failure resilience","Reduced power consumption"], a:2},
+{m:"M5: Virtualization & Cloud", t:"C", q:"Why are containers considered efficient compared to VMs?", o:["They use a hypervisor for resource management","They require less disk space for installation","They share the host OS kernel for running applications","They provide stronger isolation between apps"], a:2},
+{m:"M5: Virtualization & Cloud", t:"W", q:"What's a potential disadvantage of virtualization for capacity planning?", o:["Complicated metric collection","Inability to migrate VMs","Reduced network performance","Increased power consumption"], a:0},
+{m:"M5: Virtualization & Cloud", t:"C", q:"How do containers differ from VMs in resource consumption?", o:["Containers require more memory than VMs","VMs share the host OS kernel; containers don't","VMs are more portable across environments","Containers run processes directly on the host OS without a hypervisor"], a:3},
+{m:"M5: Virtualization & Cloud", t:"W", q:"What challenge do dedicated instances specifically address in cloud computing?", o:["Security concerns","Performance isolation","Cost management","Container scalability"], a:1},
+{m:"M5: Virtualization & Cloud", t:"C", q:"What contributes to performance variation among instances in cloud environments?", o:["Limited network topology","Uniform hardware configuration","Resource contention across customers","Reduced instance diversity"], a:2},
+{m:"M5: Virtualization & Cloud", t:"W", q:"What distinguishes containers from VMs in terms of application portability?", o:["VMs are more portable across hypervisors","Containers provide stronger isolation","VMs share the host OS kernel","Containers are less dependent on underlying hardware"], a:3},
+{m:"M5: Virtualization & Cloud", t:"I", q:"Which of the following is a type of cloud computing service?", o:["Service-as-a-Software","Software-and-a-Server","Software-as-a-Service","Software-as-a-Server"], a:2},
+{m:"M5: Virtualization & Cloud", t:"W", q:"In cloud computing, the client is on which end?", o:["Backend","Frontend","Depends","Both A and B"], a:1},
+{m:"M5: Virtualization & Cloud", t:"C", q:"Cloud computing is fundamentally based on:", o:["Modulation","Hybridization","Virtualization","Multiplexing"], a:2},
+{m:"M5: Virtualization & Cloud", t:"I", q:"True or false: Google Docs is a type of cloud computing.", o:["True","False"], a:0},
+{m:"M5: Virtualization & Cloud", t:"W", q:"Which of these is NOT among the building blocks every successful cloud-computing platform should follow?", o:["World-class security","Complete disaster recovery","High availability","Resource Utilization"], a:3},
+{m:"M5: Virtualization & Cloud", t:"C", q:"In a ___ cloud computing environment, the organization manages some resources locally while others are provided externally.", o:["Public","Hybrid","Private","All of the above"], a:1},
+{m:"M5: Virtualization & Cloud", t:"C", q:"SLA stands for:", o:["Standard Level Assignments","Service Level Agreements","Standard Level Agreements","Service Level Assignments"], a:1},
+{m:"M5: Virtualization & Cloud", t:"W", q:"Which of these is identified as a cloud offering in the text?", o:["Web Applications","Hadoop","Intranet","All of the mentioned"], a:1},
+{m:"M5: Virtualization & Cloud", t:"C", q:"Which is the best-known cloud service model grouping?", o:["SaaS","PaaS","IaaS","All of the above"], a:3},
+{m:"M5: Virtualization & Cloud", t:"W", q:"You can't count on a cloud provider maintaining your ___ in the face of government actions.", o:["Scalability","Reliability","Privacy","None of the mentioned"], a:2},
+{m:"M5: Virtualization & Cloud", t:"C", q:"Which provider type relies on virtual machine technology to deliver servers?", o:["CaaS","AaaS","PaaS","IaaS"], a:3},
+{m:"M5: Virtualization & Cloud", t:"W", q:"Which of these is an essential concept related to Cloud?", o:["Reliability","Productivity","Abstraction","Productivity and reliability"], a:2},
+{m:"M5: Virtualization & Cloud", t:"I", q:"Which of these is a cloud platform by Amazon?", o:["Azure","AWS","Cloudera","All of the mentioned"], a:1},
+{m:"M5: Virtualization & Cloud", t:"C", q:"Which is a unique attribute of cloud computing?", o:["Utility-type delivery","Elasticity","Low barrier to entry","All of the above"], a:3},
+
+// ===== BONUS: generated, not in source material =====
+{m:"Bonus: Beyond the source", t:"B", q:"Little's Law relates which three quantities in capacity/queuing analysis?", o:["Throughput, latency, error rate","Average number in system, arrival rate, average time in system","CPU cores, memory, disk I/O","Uptime, downtime, MTTR"], a:1},
+{m:"Bonus: Beyond the source", t:"B", q:"Amdahl's Law is most often used to reason about:", o:["The theoretical speedup limit from parallelizing part of a workload","The maximum allowable SLA downtime","The cost of vertical vs horizontal scaling","Cache eviction policy tradeoffs"], a:0},
+{m:"Bonus: Beyond the source", t:"B", q:"In load testing, a 'soak test' is designed to:", o:["Find the absolute breaking point under extreme load","Detect memory leaks/degradation under sustained normal load over time","Simulate a sudden traffic spike","Test failover between data centers"], a:1},
+{m:"Bonus: Beyond the source", t:"B", q:"A 'spike test' in load testing specifically evaluates:", o:["System behavior under a sudden, sharp increase in load","Long-term data retention policies","Database schema migrations","Config management rollback"], a:0},
+{m:"Bonus: Beyond the source", t:"B", q:"The four SRE 'golden signals' for monitoring a service are:", o:["CPU, memory, disk, network","Latency, traffic, errors, saturation","Uptime, cost, headcount, tickets","Throughput, hit ratio, ceiling, SPOF"], a:1},
+{m:"Bonus: Beyond the source", t:"B", q:"'Capacity headroom' (or buffer) generally refers to:", o:["The gap between current usage and the defined ceiling, reserved for spikes/growth","The amount of unused disk space on a laptop","The number of servers awaiting decommission","The interval between forecast reviews"], a:0},
+{m:"Bonus: Beyond the source", t:"B", q:"A canary deployment is best described as:", o:["Rolling a new version out to a small subset of traffic/servers before full rollout","Deploying to two identical environments and switching traffic instantly","A disaster-recovery failover pattern","A load-testing technique for databases"], a:0},
+{m:"Bonus: Beyond the source", t:"B", q:"Blue-green deployment primarily helps with:", o:["Near-zero-downtime releases by switching traffic between two environments","Forecasting seasonal traffic variation","Reducing cache hit ratio","Sharding a database"], a:0},
+{m:"Bonus: Beyond the source", t:"B", q:"Which best distinguishes database sharding from replication?", o:["Sharding splits data across nodes by key; replication copies the same data across nodes", "Sharding copies all data everywhere; replication splits it", "They're the same technique with different names", "Sharding is only used for caching, replication only for backups"], a:0},
+{m:"Bonus: Beyond the source", t:"B", q:"An autoscaling policy triggered by CPU utilization is an example of:", o:["Reactive/metric-based scaling","Diagonal scaling only","A disaster-recovery mechanism","A procurement pipeline step"], a:0},
+{m:"Bonus: Beyond the source", t:"B", q:"'Noisy neighbor' in a multi-tenant cloud environment refers to:", o:["A co-located tenant consuming shared resources and degrading your performance", "A network security breach", "A misconfigured load balancer", "An SLA violation notice"], a:0},
+{m:"Bonus: Beyond the source", t:"B", q:"The CAP theorem states a distributed system can only fully guarantee two of which three properties?", o:["Consistency, Availability, Partition tolerance","Capacity, Availability, Performance","Cost, Availability, Provisioning","Caching, Aggregation, Partitioning"], a:0},
+];
+
+const TIER_INFO = {
+  C:{name:"Critical", color:"var(--crit)"},
+  W:{name:"Warning", color:"var(--warn)"},
+  I:{name:"Info", color:"var(--info)"},
+  B:{name:"Bonus", color:"var(--bonus)"}
+};
+const TIER_ORDER = ["C","W","I","B"];
+
+// state
+let answered = new Set();   // indices answered
+let correct = new Set();    // indices answered correctly
+let currentFilter = "RANKED";
+let currentModFilter = "ALL";
+let shuffledOverride = null;
+
+function rankedOrder(){
+  return QUESTIONS.map((_,i)=>i).sort((a,b)=>{
+    const ta = TIER_ORDER.indexOf(QUESTIONS[a].t);
+    const tb = TIER_ORDER.indexOf(QUESTIONS[b].t);
+    return ta - tb;
+  });
+}
+function filteredIndices(){
+  if(shuffledOverride) return shuffledOverride.slice();
+  let idxs;
+  if(currentFilter === "RANKED") idxs = rankedOrder();
+  else idxs = QUESTIONS.map((_,i)=>i).filter(i=>QUESTIONS[i].t===currentFilter);
+  if(currentModFilter !== "ALL") idxs = idxs.filter(i=>QUESTIONS[i].m===currentModFilter);
+  return idxs;
+}
+
+function populateModuleFilter(){
+  const sel = document.getElementById('modFilter');
+  const mods = [...new Set(QUESTIONS.map(q=>q.m))];
+  mods.forEach(m=>{
+    const opt = document.createElement('option');
+    opt.value = m; opt.textContent = m;
+    sel.appendChild(opt);
+  });
+}
+
+function renderGauges(){
+  const row = document.getElementById('gaugeRow');
+  row.innerHTML = '';
+  TIER_ORDER.forEach(t=>{
+    const qsOfTier = QUESTIONS.map((q,i)=>i).filter(i=>QUESTIONS[i].t===t);
+    const done = qsOfTier.filter(i=>answered.has(i)).length;
+    const pct = qsOfTier.length ? Math.round(done/qsOfTier.length*100) : 0;
+    const info = TIER_INFO[t];
+    const div = document.createElement('div');
+    div.className = 'gauge';
+    div.innerHTML = `
+      <div class="label"><span class="swatch" style="background:${info.color}"></span>${info.name}</div>
+      <div class="val mono">${done}/${qsOfTier.length}</div>
+      <div class="bar"><i style="width:${pct}%;background:${info.color}"></i></div>
+    `;
+    row.appendChild(div);
+  });
+}
+
+function renderModuleCoverage(){
+  const list = document.getElementById('modList');
+  list.innerHTML = '';
+  const mods = [...new Set(QUESTIONS.map(q=>q.m))];
+  mods.forEach(m=>{
+    const idxs = QUESTIONS.map((q,i)=>i).filter(i=>QUESTIONS[i].m===m);
+    const done = idxs.filter(i=>answered.has(i)).length;
+    const pct = idxs.length ? Math.round(done/idxs.length*100) : 0;
+    const row = document.createElement('div');
+    row.className = 'mod-row';
+    row.innerHTML = `
+      <div class="name">${m}</div>
+      <div class="track"><i style="width:${pct}%"></i></div>
+      <div class="count">${done}/${idxs.length}</div>
+    `;
+    list.appendChild(row);
+  });
+}
+
+function renderStats(){
+  document.getElementById('statAnswered').textContent = `${answered.size}/${QUESTIONS.length}`;
+  const acc = answered.size ? Math.round(correct.size/answered.size*100)+'%' : '—';
+  document.getElementById('statAcc').textContent = acc;
+  document.getElementById('statMode').textContent = currentFilter === "RANKED" ? "RANKED" : TIER_INFO[currentFilter] ? TIER_INFO[currentFilter].name.toUpperCase() : "ALL";
+}
+
+// Renders every filtered question on the page at once — answer any of them,
+// in any order, no forced sequence.
+function renderAll(){
+  const area = document.getElementById('quizArea');
+  const idxs = filteredIndices();
+  area.innerHTML = '';
+
+  if(idxs.length === 0){
+    area.innerHTML = `<div class="qcard empty"><div class="big">—</div><div>No questions match this filter combination.</div></div>`;
+    return;
+  }
+
+  const list = document.createElement('div');
+  list.style.display = 'flex';
+  list.style.flexDirection = 'column';
+  list.style.gap = '14px';
+
+  const letters = ['A','B','C','D'];
+  idxs.forEach((idx, pos)=>{
+    const q = QUESTIONS[idx];
+    const info = TIER_INFO[q.t];
+    const card = document.createElement('div');
+    card.className = 'qcard';
+    card.dataset.idx = idx;
+
+    card.innerHTML = `
+      <div class="qmeta">
+        <span class="tag ${q.t}">${info.name}</span>
+        <span class="idx mono">#${pos+1} / ${idxs.length}</span>
+        <span class="mod mono">${q.m}</span>
+      </div>
+      <p class="qtext">${q.q}</p>
+      <div class="opts" id="opts-${idx}"></div>
+      <div class="foot-row">
+        <div class="result-note" id="note-${idx}"></div>
+      </div>
+    `;
+
+    const optsWrap = card.querySelector(`#opts-${idx}`);
+    q.o.forEach((optText, oi)=>{
+      const btn = document.createElement('button');
+      btn.className = 'opt';
+      btn.innerHTML = `<span class="letter">${letters[oi]}</span><span>${optText}</span>`;
+      if(answered.has(idx)){
+        btn.classList.add('locked');
+        btn.disabled = true;
+        if(oi === q.a) btn.classList.add('correct');
+        if(oi === q.chosen && oi !== q.a) btn.classList.add('wrong');
+      }
+      btn.addEventListener('click', ()=> selectAnswer(idx, oi));
+      optsWrap.appendChild(btn);
+    });
+
+    if(answered.has(idx)){
+      const note = card.querySelector(`#note-${idx}`);
+      const isCorrect = correct.has(idx);
+      note.textContent = isCorrect ? "Correct." : `Incorrect — correct answer: ${letters[q.a]}.`;
+      note.classList.add(isCorrect ? 'ok' : 'bad');
+    }
+
+    list.appendChild(card);
+  });
+
+  area.appendChild(list);
+}
+
+function selectAnswer(idx, chosen){
+  if(answered.has(idx)) return;
+  answered.add(idx);
+  const q = QUESTIONS[idx];
+  q.chosen = chosen;
+  const isCorrect = chosen === q.a;
+  if(isCorrect) correct.add(idx);
+
+  renderGauges();
+  renderModuleCoverage();
+  renderStats();
+  renderAll(); // re-render in place; each card keeps its own scroll position roughly since order is stable
+}
+
+function shuffle(){
+  const idxs = filteredIndices();
+  for(let i = idxs.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [idxs[i],idxs[j]] = [idxs[j],idxs[i]];
+  }
+  shuffledOverride = idxs;
+  renderAll();
+}
+
+document.getElementById('tierFilter').addEventListener('change', (e)=>{
+  currentFilter = e.target.value;
+  shuffledOverride = null;
+  renderStats();
+  renderAll();
+});
+document.getElementById('modFilter').addEventListener('change', (e)=>{
+  currentModFilter = e.target.value;
+  shuffledOverride = null;
+  renderAll();
+});
+document.getElementById('shuffleBtn').addEventListener('click', shuffle);
+document.getElementById('resetBtn').addEventListener('click', ()=>{
+  answered = new Set();
+  correct = new Set();
+  shuffledOverride = null;
+  QUESTIONS.forEach(q=>delete q.chosen);
+  renderGauges();
+  renderModuleCoverage();
+  renderStats();
+  renderAll();
+});
+
+// init
+populateModuleFilter();
+renderGauges();
+renderModuleCoverage();
+renderStats();
+renderAll();
+</script>
+</body>
+</html>

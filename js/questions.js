@@ -8,7 +8,7 @@ export const QUESTIONS = [
       "False"
     ],
     "a": 0,
-    "e": "Correct Answer: **True**. This standard capacity planning guideline or rule of thumb dictates that **True** is the correct answer under the given context."
+    "e": "Converting dynamic pages to static HTML pages (a process known as 'baking') eliminates the need for database queries and application server processing. In virtualized environments, this significantly reduces resource usage (CPU/memory overhead) and permits web servers to serve the content extremely fast, making it highly effective for handling erratic or spiking traffic. The alternative of keeping pages dynamic under erratic load can easily exhaust the server's database connection pool or virtual CPU limits."
   },
   {
     "m": "Static Pages (sample)",
@@ -21,7 +21,7 @@ export const QUESTIONS = [
       "None of these"
     ],
     "a": 1,
-    "e": "Correct Answer: **Conversion**. This standard capacity planning guideline or rule of thumb dictates that **Conversion** is the correct answer under the given context."
+    "e": "Converting dynamic pages to static HTML pages is referred to as 'Conversion' in this context (though 'baking' is also a widely used slang in web operations). 'Compromise' is incorrect because it implies a negative trade-off without technical specificity, and 'Baking' is not selected as the primary term in this question's answer key."
   },
   {
     "m": "Static Pages (sample)",
@@ -34,7 +34,7 @@ export const QUESTIONS = [
       "All of the above"
     ],
     "a": 1,
-    "e": "Correct Answer: **They cannot be served very fast**. Converting dynamic pages to static HTML pages (baking) avoids database queries and app-server computations, enabling the system to serve pages instantly and handle high traffic spikes."
+    "e": "Static pages are pre-rendered and served directly from disk or memory cache. Since they do not require application logic execution or database lookups, they can be served exceptionally fast. Therefore, the statement 'They cannot be served very fast' is incorrect (making it the correct choice for this question). Statements like not initiating database lookups and being easy to cache are correct facts about static pages."
   },
   {
     "m": "M1: Foundations",
@@ -47,7 +47,7 @@ export const QUESTIONS = [
       "Forecasting IT infrastructure spending"
     ],
     "a": 2,
-    "e": "Correct Answer: **Use of public clouds**. This standard capacity planning guideline or rule of thumb dictates that **Use of public clouds** is the correct answer under the given context."
+    "e": "The first edition of the book focused primarily on capacity planning for the use of public clouds, which was a nascent and rapidly growing paradigm at the time. While cloud environments and forecasting are related, the specific emphasis was on transitioning from traditional datacenters to using public cloud resources. Serverless architectures were not yet a primary focus in the early edition."
   },
   {
     "m": "M1: Foundations",
@@ -60,7 +60,7 @@ export const QUESTIONS = [
       "Increased availability of digital media"
     ],
     "a": 1,
-    "e": "Correct Answer: **Reduced operational cost and complexity**. Serverless architectures abstract away the underlying infrastructure, reducing operational complexity and cost since you only pay for actual execution resources."
+    "e": "Serverless architectures abstract the underlying server management and infrastructure provisioning away from developers. This dramatically reduces operational complexity and costs, as organizations only pay for the exact execution time of their functions rather than maintaining idle server capacity. It actually increases vendor lock-in (dependencies), making that choice incorrect."
   },
   {
     "m": "M1: Foundations",
@@ -73,7 +73,7 @@ export const QUESTIONS = [
       "User satisfaction scores"
     ],
     "a": 3,
-    "e": "Correct Answer: **User satisfaction scores**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "Response times, consumable capacity, and peak-driven processing are direct operational and system metrics used to quantify and design system capacity. While user satisfaction scores (like Net Promoter Scores or app store ratings) are important business indicators, they are not direct metrics used to calculate or define low-level technical load and hardware capacity requirements."
   },
   {
     "m": "M1: Foundations",
@@ -86,7 +86,7 @@ export const QUESTIONS = [
       "Continuous monitoring of system performance"
     ],
     "a": 2,
-    "e": "Correct Answer: **Spike in tweets during the Super Bowl**. This standard capacity planning guideline or rule of thumb dictates that **Spike in tweets during the Super Bowl** is the correct answer under the given context."
+    "e": "Peak-driven processing refers to handling massive, concentrated traffic surges triggered by real-time events. The spike in tweets during the Super Bowl is a classic example of this phenomenon, where load suddenly increases by orders of magnitude. Daily routine operations and continuous monitoring represent steady-state or predictable patterns rather than sudden peak-driven events."
   },
   {
     "m": "M1: Foundations",
@@ -99,7 +99,7 @@ export const QUESTIONS = [
       "Ease of horizontal scaling"
     ],
     "a": 2,
-    "e": "Correct Answer: **Long supply-chain cycles and configuration overhead**. This standard capacity planning guideline or rule of thumb dictates that **Long supply-chain cycles and configuration overhead** is the correct answer under the given context."
+    "e": "Traditional datacenters require physical procurement, shipping, rack mounting, and manual cabling of hardware, which creates long supply-chain cycles and significant configuration overhead. In contrast, cloud environments offer near-instant provisioning. High cost of elasticity is more of a cloud challenge if not managed properly, while ease of horizontal scaling is a cloud benefit, not a datacenter challenge."
   },
   {
     "m": "M1: Foundations",
@@ -112,7 +112,7 @@ export const QUESTIONS = [
       "It ensures complete, unbiased information"
     ],
     "a": 1,
-    "e": "Correct Answer: **It connects the dots between inputs and makes best guesses for the future**. This standard capacity planning guideline or rule of thumb dictates that **It connects the dots between inputs and makes best guesses for the future** is the correct answer under the given context."
+    "e": "In capacity planning, perfect information is rarely available. 'Quick and dirty' math (back-of-the-envelope calculations) allows engineers to rapidly link disparate inputs—such as user growth, request rates, and resource utilization—to make reasonable, actionable projections. It does not provide high precision, eliminate scaling needs, or guarantee unbiased completeness, but it prevents analysis paralysis."
   },
   {
     "m": "M1: Foundations",
@@ -125,7 +125,7 @@ export const QUESTIONS = [
       "Difficulty setting up autoscaling policies"
     ],
     "a": 0,
-    "e": "Correct Answer: **Over-provisioning leading to increased costs**. This standard capacity planning guideline or rule of thumb dictates that **Over-provisioning leading to increased costs** is the correct answer under the given context."
+    "e": "Because the cloud makes it extremely easy to spin up instances with the click of a button, a lack of detailed planning often leads to over-provisioning (running excessively large or unnecessary instances), which directly results in run-away costs (known as 'cloud jail'). Under-provisioning is also a risk, but the question targets the cost aspect associated with over-provisioning. Long supply-chain cycles are a datacenter issue, not a cloud issue."
   },
   {
     "m": "M1: Foundations",
@@ -138,7 +138,7 @@ export const QUESTIONS = [
       "Software components"
     ],
     "a": 3,
-    "e": "Correct Answer: **Software components**. This standard capacity planning guideline or rule of thumb dictates that **Software components** is the correct answer under the given context."
+    "e": "Modern infrastructure relies heavily on virtualization, software-defined networking, and software load balancers. As these functions transition from physical appliances to software, the capacity-planning process must explicitly model and account for software components (such as thread pools, memory limits, and virtual queue sizes) rather than just physical hardware constraints."
   },
   {
     "m": "M1: Foundations",
@@ -151,7 +151,7 @@ export const QUESTIONS = [
       "User errors, system overloads, database corruption"
     ],
     "a": 1,
-    "e": "Correct Answer: **SLA violations, graceful degradation, true system failure**. This standard capacity planning guideline or rule of thumb dictates that **SLA violations, graceful degradation, true system failure** is the correct answer under the given context."
+    "e": "For capacity planning, system behavior under load is categorized into three critical states: SLA violations (where the system is functional but too slow), graceful degradation (where non-essential features are disabled to keep core functions running), and true system failure (complete service outage). The other choices list specific technical root causes or symptoms rather than these three macro-level capacity planning failure states."
   },
   {
     "m": "M1: Foundations",
@@ -164,7 +164,7 @@ export const QUESTIONS = [
       "Manual intervention to prevent failure"
     ],
     "a": 1,
-    "e": "Correct Answer: **Slightly reduced performance under increased load**. This standard capacity planning guideline or rule of thumb dictates that **Slightly reduced performance under increased load** is the correct answer under the given context."
+    "e": "Graceful degradation is a design pattern where a system intentionally reduces its performance, response fidelity, or non-essential features (e.g., turning off recommendations or serving static cache) under extreme load to remain functional. This prevents a complete system shutdown or sudden catastrophic failure."
   },
   {
     "m": "M1: Foundations",
@@ -177,7 +177,7 @@ export const QUESTIONS = [
       "To simplify architecture"
     ],
     "a": 1,
-    "e": "Correct Answer: **To better understand and track how capacity changes over time**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "Tying low-level system metrics (like CPU usage or disk I/O) to high-level business metrics (like active users or checkouts) allows you to establish a direct correlation between business growth and resource consumption. This correlation is essential for forecasting future capacity needs as the business scales, rather than analyzing raw hardware stats in a vacuum."
   },
   {
     "m": "M1: Foundations",
@@ -190,7 +190,7 @@ export const QUESTIONS = [
       "Total data storage capacity"
     ],
     "a": 2,
-    "e": "Correct Answer: **Features that tax capacity more than others**. This standard capacity planning guideline or rule of thumb dictates that **Features that tax capacity more than others** is the correct answer under the given context."
+    "e": "Not all application features exert equal pressure on infrastructure resources. For example, photo resizing or database search options tax resources far more heavily than serving a simple profile page. Capacity planners must identify and prioritize these high-resource features because they represent the system's scaling bottlenecks."
   },
   {
     "m": "M1: Foundations",
@@ -203,7 +203,7 @@ export const QUESTIONS = [
       "Ensures legal compliance"
     ],
     "a": 1,
-    "e": "Correct Answer: **Makes it easier to secure funding for hardware/software**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "Non-technical stakeholders and finance departments rarely understand why they need to purchase more servers based on CPU metrics alone. Translating system resource usage into business metrics (e.g., 'every 10,000 new users require 2 database replicas') makes the business case clear, making it much easier to secure budgets and funding."
   },
   {
     "m": "M1: Foundations",
@@ -216,7 +216,7 @@ export const QUESTIONS = [
       "Minimize technology investment costs"
     ],
     "a": 1,
-    "e": "Correct Answer: **Deliver the best end-user experience**. This standard capacity planning guideline or rule of thumb dictates that **Deliver the best end-user experience** is the correct answer under the given context."
+    "e": "The ultimate objective of capacity planning is to ensure that infrastructure is sufficiently provisioned to deliver a fast, reliable, and uninterrupted experience to the end-user. While cost reduction and resource utilization are important secondary constraints, they should not compromise the primary goal of meeting user demand and service-level targets."
   },
   {
     "m": "M1: Foundations",
@@ -229,7 +229,7 @@ export const QUESTIONS = [
       "Limiting number of users"
     ],
     "a": 1,
-    "e": "Correct Answer: **Queuing and caching-based approaches**. This standard capacity planning guideline or rule of thumb dictates that **Queuing and caching-based approaches** is the correct answer under the given context."
+    "e": "Running at maximum capacity continuously is cost-prohibitive. Queuing (to buffer excess incoming requests) and caching (to serve content without querying backend databases) allow a system to absorb sudden traffic spikes gracefully without requiring a massive, permanently over-provisioned fleet of servers."
   },
   {
     "m": "M1: Foundations",
@@ -242,7 +242,7 @@ export const QUESTIONS = [
       "Ensure system security"
     ],
     "a": 1,
-    "e": "Correct Answer: **Align capacity requirements with roadmaps and predict needs accurately**. This standard capacity planning guideline or rule of thumb dictates that **Align capacity requirements with roadmaps and predict needs accurately** is the correct answer under the given context."
+    "e": "Capacity planners must understand the upcoming product roadmap (e.g., new features, marketing campaigns, or regional rollouts) to anticipate changes in system demand. Collaborating with product and engineering teams ensures that infrastructure is provisioned ahead of new feature launches, preventing unexpected capacity crunches."
   },
   {
     "m": "M1: Foundations",
@@ -255,7 +255,7 @@ export const QUESTIONS = [
       "Reduced data redundancy"
     ],
     "a": 2,
-    "e": "Correct Answer: **SLA violations and adverse user-experience impact**. This standard capacity planning guideline or rule of thumb dictates that **SLA violations and adverse user-experience impact** is the correct answer under the given context."
+    "e": "When traffic spikes exceed the available server capacity, the system slows down or crashes entirely. This leads to Service Level Agreement (SLA) violations, failed user requests, and an extremely poor user experience, which can damage reputation and lead to direct financial loss."
   },
   {
     "m": "M1: Foundations",
@@ -268,7 +268,7 @@ export const QUESTIONS = [
       "Limit data collected"
     ],
     "a": 1,
-    "e": "Correct Answer: **Visually represent performance and assist decision-making**. This standard capacity planning guideline or rule of thumb dictates that **Visually represent performance and assist decision-making** is the correct answer under the given context."
+    "e": "Visualizing performance metrics via charts and dashboards helps planners quickly identify bottlenecks, analyze trends, spot anomalies, and make informed provisioning decisions. Graphs don't directly simplify system architecture or eliminate the need for technical expertise, but they synthesize vast amounts of raw data into actionable insights."
   },
   {
     "m": "M1: Foundations",
@@ -281,7 +281,7 @@ export const QUESTIONS = [
       "Restriction to a single geographic location"
     ],
     "a": 1,
-    "e": "Correct Answer: **Excessive cloud spending and dependence on the provider**. This standard capacity planning guideline or rule of thumb dictates that **Excessive cloud spending and dependence on the provider** is the correct answer under the given context."
+    "e": "'Cloud jail' is a slang term describing the state where an organization becomes trapped by runaway cloud costs and heavy architectural lock-in with a specific cloud provider. This makes it financially and technically difficult to migrate away or optimize expenditures, negating the flexibility benefits of the cloud."
   },
   {
     "m": "M1: Foundations",
@@ -294,7 +294,7 @@ export const QUESTIONS = [
       "Access to more advanced technology"
     ],
     "a": 1,
-    "e": "Correct Answer: **Faster procurement due to less cumbersome approval**. The procurement pipeline represents the time it takes to acquire and configure hardware capacity. Just-in-Time (JIT) minimizes waste by provisioning resources precisely when needed."
+    "e": "Smaller companies have flatter organizational structures and fewer administrative processes, allowing them to make purchasing decisions and approve hardware procurement rapidly. Larger companies, while having better bulk-buying discounts and vendor negotiating power, are often slowed down by complex, multi-tiered corporate approval workflows."
   },
   {
     "m": "M1: Foundations",
@@ -307,7 +307,7 @@ export const QUESTIONS = [
       "Benchmark in artificial environments"
     ],
     "a": 1,
-    "e": "Correct Answer: **Optimize the existing system for better performance**. This standard capacity planning guideline or rule of thumb dictates that **Optimize the existing system for better performance** is the correct answer under the given context."
+    "e": "Performance tuning focuses on modifying existing code, software configurations, database indexes, or operating system parameters to maximize the efficiency and throughput of the current system. While capacity planning involves forecasting and acquiring new resources, tuning ensures that existing resources are fully optimized first."
   },
   {
     "m": "M1: Foundations",
@@ -320,7 +320,7 @@ export const QUESTIONS = [
       "It's a cloud-provider requirement"
     ],
     "a": 1,
-    "e": "Correct Answer: **Empirical observations give more relevant planning data**. This standard capacity planning guideline or rule of thumb dictates that **Empirical observations give more relevant planning data** is the correct answer under the given context."
+    "e": "Theoretical models and synthetic benchmarks often fail to capture the complex, unpredictable interactions of real-world user traffic, network latency, and cache eviction patterns. Basing capacity plans on empirical observations from production systems ensures that the projections are highly relevant and accurate."
   },
   {
     "m": "M1: Foundations",
@@ -333,7 +333,7 @@ export const QUESTIONS = [
       "Integrating third-party services"
     ],
     "a": 0,
-    "e": "Correct Answer: **Predicting growth patterns due to user control over content**. This standard capacity planning guideline or rule of thumb dictates that **Predicting growth patterns due to user control over content** is the correct answer under the given context."
+    "e": "User-generated content means that content creation and traffic are driven by user activity rather than editorial schedules. This makes predicting growth patterns highly challenging, as a single viral post or user-led trend can spark sudden, massive spikes. Security and design integrations are important, but do not present the primary growth predictability challenge."
   },
   {
     "m": "M1: Foundations",
@@ -346,7 +346,7 @@ export const QUESTIONS = [
       "Changing the route"
     ],
     "a": 2,
-    "e": "Correct Answer: **Purchasing more trucks**. This standard capacity planning guideline or rule of thumb dictates that **Purchasing more trucks** is the correct answer under the given context."
+    "e": "In the butcher-in-San-Francisco example (which illustrates capacity planning vs. performance tuning), if the demand exceeds what a delivery truck can carry, the correct solution is to acquire more physical resources (purchasing more trucks). Tuning the engine or route cannot increase the load capacity if the truck is already physically full."
   },
   {
     "m": "M1: Foundations",
@@ -359,7 +359,7 @@ export const QUESTIONS = [
       "Influences visual design"
     ],
     "a": 1,
-    "e": "Correct Answer: **Affects how easily/flexibly you can add or subtract capacity**. This standard capacity planning guideline or rule of thumb dictates that **Affects how easily/flexibly you can add or subtract capacity** is the correct answer under the given context."
+    "e": "Software and system architecture dictates how easily components can be separated, replicated, and distributed. A well-designed, decoupled architecture allows you to scale specific bottlenecked components horizontally (adding or subtracting capacity) with ease, whereas a tightly coupled monolithic architecture restricts this flexibility."
   },
   {
     "m": "M1: Foundations",
@@ -372,7 +372,7 @@ export const QUESTIONS = [
       "Maintain aesthetic quality"
     ],
     "a": 1,
-    "e": "Correct Answer: **Watch for emerging patterns and prevent abuse**. This standard capacity planning guideline or rule of thumb dictates that **Watch for emerging patterns and prevent abuse** is the correct answer under the given context."
+    "e": "Monitoring API usage is essential to identify traffic patterns, ensure that third-party integrations are functioning correctly, and detect/prevent malicious or abusive usage (such as scraping or denial of service). It is not primarily used for tracking coding-standard compliance or visual aesthetics."
   },
   {
     "m": "M1: Foundations",
@@ -385,7 +385,7 @@ export const QUESTIONS = [
       "Performance tuning is unnecessary if capacity planning is correct"
     ],
     "a": 1,
-    "e": "Correct Answer: **Different goals, but they affect each other**. This standard capacity planning guideline or rule of thumb dictates that **Different goals, but they affect each other** is the correct answer under the given context."
+    "e": "Performance tuning (making existing code/systems run faster and use fewer resources) and capacity planning (forecasting and purchasing new resources) have different primary objectives, but they directly affect each other: tuning increases the effective ceiling of your current capacity, delaying the need for new hardware purchases."
   },
   {
     "m": "M1: Foundations",
@@ -398,7 +398,7 @@ export const QUESTIONS = [
       "Changing the business model"
     ],
     "a": 1,
-    "e": "Correct Answer: **Acquiring additional resources**. This standard capacity planning guideline or rule of thumb dictates that **Acquiring additional resources** is the correct answer under the given context."
+    "e": "In the butcher example, the primary capacity planning lesson is that to handle increased structural demand, you must focus on acquiring additional resources (scaling out). Tuning the speed or routing of existing trucks offers diminishing returns and does not solve the absolute capacity bottleneck."
   },
   {
     "m": "M2: Monitoring",
@@ -411,7 +411,7 @@ export const QUESTIONS = [
       "None of the above"
     ],
     "a": 1,
-    "e": "Correct Answer: **Ganglia**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "Ganglia is a scalable, distributed monitoring system designed for high-performance computing systems such as clusters and grids, allowing real-time tracking of node metrics. Gomez is an external synthetic monitoring service, and Elastra is a cloud management platform."
   },
   {
     "m": "M2: Monitoring",
@@ -424,7 +424,7 @@ export const QUESTIONS = [
       "Install/update software"
     ],
     "a": 1,
-    "e": "Correct Answer: **Automatically and routinely measure server behavior over time**. This standard capacity planning guideline or rule of thumb dictates that **Automatically and routinely measure server behavior over time** is the correct answer under the given context."
+    "e": "Capacity tracking tools automate the continuous collection and recording of system metrics (CPU, RAM, disk, etc.) over long periods to analyze historical usage patterns and trends. While alerting is important, it is the primary role of availability monitoring tools (like Nagios), not capacity tracking."
   },
   {
     "m": "M2: Monitoring",
@@ -437,7 +437,7 @@ export const QUESTIONS = [
       "Grafana"
     ],
     "a": 3,
-    "e": "Correct Answer: **Grafana**. This standard capacity planning guideline or rule of thumb dictates that **Grafana** is the correct answer under the given context."
+    "e": "Grafana is a data visualization and dashboarding tool, not a load-testing generator. Loadrunner, JMeter, and Iago are all tools designed to generate synthetic user load to test system performance under stress."
   },
   {
     "m": "M2: Monitoring",
@@ -450,7 +450,7 @@ export const QUESTIONS = [
       "Hierarchical Database"
     ],
     "a": 2,
-    "e": "Correct Answer: **Round-Robin Database (RRD)**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "Round-Robin Database (RRD) is a standard time-series database format that stores data in a circular buffer, meaning the file size remains constant over time as older data is automatically consolidated and overwritten. This makes it ideal for metric-aggregation systems like RRDTool."
   },
   {
     "m": "M2: Monitoring",
@@ -463,7 +463,7 @@ export const QUESTIONS = [
       "Cacti"
     ],
     "a": 2,
-    "e": "Correct Answer: **Grafana**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "Grafana is a highly popular open-source platform specifically designed for querying, visualizing, and alerting on time-series metrics. While Graphite and Ganglia collect/store metrics, Grafana provides the rich visualization layer. Cacti is a complete graphing tool but is older and less dedicated to interactive time-series queries."
   },
   {
     "m": "M2: Monitoring",
@@ -476,7 +476,7 @@ export const QUESTIONS = [
       "Sematext"
     ],
     "a": 2,
-    "e": "Correct Answer: **collectd**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "collectd is a system daemon that periodically gathers system and application performance metrics and transmits them to a central server. Riemann is an event stream processor, and Datadog/Sematext are proprietary SaaS monitoring solutions rather than simple local collection daemons."
   },
   {
     "m": "M2: Monitoring",
@@ -489,7 +489,7 @@ export const QUESTIONS = [
       "Primarily for alert generation"
     ],
     "a": 1,
-    "e": "Correct Answer: **Assumes interest in fine detail only for the recent past**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "RRDTool uses a round-robin format where data is stored in high detail for the recent past (e.g., 5-minute averages for the last 24 hours) and then progressively aggregated into lower resolution (e.g., daily averages for the last year). This keeps storage requirements constant and manageable."
   },
   {
     "m": "M2: Monitoring",
@@ -502,7 +502,7 @@ export const QUESTIONS = [
       "Handle authentication/authorization"
     ],
     "a": 1,
-    "e": "Correct Answer: **Periodically collect data and send a summary to the aggregation server**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "In metric collection systems, the agent runs on individual monitored servers to periodically gather system performance statistics (CPU, memory, disk, network) and transmit aggregated summaries to a central server. Visualization and configuration are handled elsewhere."
   },
   {
     "m": "M2: Monitoring",
@@ -515,7 +515,7 @@ export const QUESTIONS = [
       "It takes too long to analyze"
     ],
     "a": 1,
-    "e": "Correct Answer: **It can misguide decisions due to data staleness**. This standard capacity planning guideline or rule of thumb dictates that **It can misguide decisions due to data staleness** is the correct answer under the given context."
+    "e": "Storing very old operations data is often not useful because old patterns (e.g., traffic patterns from years ago when the application had different features) are stale and do not reflect current system behavior, which can misguide capacity forecasts. It also incurs unnecessary storage costs."
   },
   {
     "m": "M2: Monitoring",
@@ -528,7 +528,7 @@ export const QUESTIONS = [
       "TCP/IP"
     ],
     "a": 2,
-    "e": "Correct Answer: **SNMP**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "Simple Network Management Protocol (SNMP) is the standard protocol used for monitoring and managing network devices (routers, switches) and server hardware. HTTP, FTP, and TCP/IP are general web/network protocols, not dedicated management/monitoring protocols."
   },
   {
     "m": "M2: Monitoring",
@@ -541,7 +541,7 @@ export const QUESTIONS = [
       "Monitor network traffic"
     ],
     "a": 1,
-    "e": "Correct Answer: **Distribute load among pools/clusters of machines**. Load balancers distribute user traffic evenly across a pool of servers, managing capacity headroom and preventing individual server overloads."
+    "e": "Load balancers distribute incoming network or application traffic across a pool of servers. This prevents any single server from becoming a performance bottleneck, ensures high availability, and facilitates horizontal scaling."
   },
   {
     "m": "M2: Monitoring",
@@ -554,7 +554,7 @@ export const QUESTIONS = [
       "Track concurrent users"
     ],
     "a": 1,
-    "e": "Correct Answer: **Provide a comprehensive view of the entire system's performance**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "Application-level metrics (such as checkouts per minute or signups) track logical business events. Collecting these metrics provides a holistic view of the system's business health and helps correlate hardware resource usage with user activity."
   },
   {
     "m": "M2: Monitoring",
@@ -567,7 +567,7 @@ export const QUESTIONS = [
       "Photos uploaded per minute"
     ],
     "a": 2,
-    "e": "Correct Answer: **CPU usage per server**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "CPU usage per server is a low-level, system-specific hardware metric. Tweets per minute, messages per minute, and photos uploaded per minute are all application-level metrics that track user interactions with the application logic."
   },
   {
     "m": "M2: Monitoring",
@@ -580,7 +580,7 @@ export const QUESTIONS = [
       "Require less storage"
     ],
     "a": 1,
-    "e": "Correct Answer: **Provide insight into business and financial impacts**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "System-level metrics (like CPU or RAM) are highly technical and do not directly show business value. Tracking application-level metrics (like successful purchases or transactions) directly translates infrastructure health into business performance and financial outcomes."
   },
   {
     "m": "M2: Monitoring",
@@ -593,7 +593,7 @@ export const QUESTIONS = [
       "A balloon"
     ],
     "a": 2,
-    "e": "Correct Answer: **A glass of water**. This standard capacity planning guideline or rule of thumb dictates that **A glass of water** is the correct answer under the given context."
+    "e": "The 'glass of water' analogy is used to explain storage capacity and performance: the volume of the glass represents storage capacity, while the speed at which you can pour water in/out represents performance (I/O throughput and latency)."
   },
   {
     "m": "M2: Monitoring",
@@ -606,7 +606,7 @@ export const QUESTIONS = [
       "ATA/SATA drives"
     ],
     "a": 3,
-    "e": "Correct Answer: **ATA/SATA drives**. This standard capacity planning guideline or rule of thumb dictates that **ATA/SATA drives** is the correct answer under the given context."
+    "e": "ATA/SATA hard disk drives offer very large storage capacities at a very low cost per gigabyte, but they are significantly slower in terms of seek times and I/O operations per second (IOPS) compared to enterprise-grade SAS, SCSI, or Solid State Drives (SSDs)."
   },
   {
     "m": "M2: Monitoring",
@@ -619,7 +619,7 @@ export const QUESTIONS = [
       "Cache buffer size"
     ],
     "a": 2,
-    "e": "Correct Answer: **Network bandwidth**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "HDD performance is evaluated using sustained transfer rates, average rotational latency, seek times, and cache buffer size. Network bandwidth is an external infrastructure metric, not a characteristic used to measure or compare internal hard disk drive performance."
   },
   {
     "m": "M2: Monitoring",
@@ -632,7 +632,7 @@ export const QUESTIONS = [
       "CPU utilization on storage servers"
     ],
     "a": 0,
-    "e": "Correct Answer: **Total disk space consumption over time**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "To predict when to purchase new storage disks, planners track the rate of disk space consumption over time. While disk I/O and CPU are performance metrics, absolute storage volume depletion is forecasted via disk space capacity trends."
   },
   {
     "m": "M2: Monitoring",
@@ -645,7 +645,7 @@ export const QUESTIONS = [
       "Saturdays"
     ],
     "a": 2,
-    "e": "Correct Answer: **Sundays**. This standard capacity planning guideline or rule of thumb dictates that **Sundays** is the correct answer under the given context."
+    "e": "In the Flickr capacity planning case study, Sundays were identified as the peak periods for photo uploads, as users took photos over the weekend and uploaded them as the weekend ended."
   },
   {
     "m": "M2: Monitoring",
@@ -658,7 +658,7 @@ export const QUESTIONS = [
       "Enhance server performance"
     ],
     "a": 1,
-    "e": "Correct Answer: **Reduce storage costs**. This standard capacity planning guideline or rule of thumb dictates that **Reduce storage costs** is the correct answer under the given context."
+    "e": "Data storage accumulates over time, which increases hardware, backup, and maintenance costs. Setting clear data retention policies (e.g., archiving or deleting logs/data after 90 days) keeps storage costs predictable and manageable."
   },
   {
     "m": "M2: Monitoring",
@@ -671,7 +671,7 @@ export const QUESTIONS = [
       "Wireshark"
     ],
     "a": 3,
-    "e": "Correct Answer: **Wireshark**. This standard capacity planning guideline or rule of thumb dictates that **Wireshark** is the correct answer under the given context."
+    "e": "Wireshark is a packet analyzer used for network troubleshooting and analysis. Hard Disk Sentinel, IOBench, and ATTO Disk Benchmark are specialized tools used to measure disk read/write throughput, IOPS, and general storage performance."
   },
   {
     "m": "M2: Monitoring",
@@ -684,7 +684,7 @@ export const QUESTIONS = [
       "Number of CPU cores"
     ],
     "a": 2,
-    "e": "Correct Answer: **Cache hit ratio**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "The cache hit ratio represents the percentage of incoming requests successfully served from cache memory rather than querying the slower backend storage. Monitoring and optimizing this ratio is crucial for understanding cache performance and capacity."
   },
   {
     "m": "M2: Monitoring",
@@ -697,7 +697,7 @@ export const QUESTIONS = [
       "Network usage"
     ],
     "a": 1,
-    "e": "Correct Answer: **Hit ratio**. Caching keeps high-frequency data in fast-access memory, avoiding slow backend database calls and lowering overall response latency."
+    "e": "For a cache with a small or slow-growing working set, the capacity limit is defined by the cache hit ratio. If the cache size is large enough to hold the active working set, the hit ratio remains high, meaning the backend database is shielded and performance is maintained."
   },
   {
     "m": "M2: Monitoring",
@@ -710,7 +710,7 @@ export const QUESTIONS = [
       "Disk I/O wait"
     ],
     "a": 2,
-    "e": "Correct Answer: **Hit ratio**. This standard capacity planning guideline or rule of thumb dictates that **Hit ratio** is the correct answer under the given context."
+    "e": "Caching hardware performance is largely guided by the cache hit ratio. A higher hit ratio means more requests are served from RAM, maximizing the throughput and minimizing latency of the hardware platform."
   },
   {
     "m": "M2: Monitoring",
@@ -723,7 +723,7 @@ export const QUESTIONS = [
       "Network usage"
     ],
     "a": 2,
-    "e": "Correct Answer: **Disk I/O wait**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "Squid is a web proxy cache. Because it reads and writes cached objects to local disk storage, its primary performance bottleneck under high load is disk I/O wait times, which represents the time the CPU spends waiting for disk reads/writes to complete."
   },
   {
     "m": "M2: Monitoring",
@@ -736,7 +736,7 @@ export const QUESTIONS = [
       "No correlation"
     ],
     "a": 0,
-    "e": "Correct Answer: **Linear**. This standard capacity planning guideline or rule of thumb dictates that **Linear** is the correct answer under the given context."
+    "e": "Photo processing (resizing, compression, conversion) is a highly CPU-intensive operation. The relationship between the rate of photos processed per second and CPU utilization is typically linear, meaning CPU usage increases predictably as more photos are processed."
   },
   {
     "m": "M2: Monitoring",
@@ -749,7 +749,7 @@ export const QUESTIONS = [
       "Track usage for billing"
     ],
     "a": 2,
-    "e": "Correct Answer: **Prevent abuse and ensure fair usage**. This standard capacity planning guideline or rule of thumb dictates that **Prevent abuse and ensure fair usage** is the correct answer under the given context."
+    "e": "Rate-limiting API calls prevents individual clients or malicious actors from consuming excessive server resources. This prevents abuse, ensures fair resource sharing among all users, and protects the system from cascading capacity failures."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -762,7 +762,7 @@ export const QUESTIONS = [
       "All of the above"
     ],
     "a": 3,
-    "e": "Correct Answer: **All of the above**. This standard capacity planning guideline or rule of thumb dictates that **All of the above** is the correct answer under the given context."
+    "e": "System requirements and capacity goals are multi-faceted and interrelated. Business requirements (budget and goals), user expectations (acceptable latency), and external monitoring constraints all influence performance, availability, and reliability targets."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -775,7 +775,7 @@ export const QUESTIONS = [
       "All of the above"
     ],
     "a": 3,
-    "e": "Correct Answer: **All of the above**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "Commercial monitoring services measure multiple metrics to evaluate site performance: page load time (total time to render), Time to First Byte (TTFB, server responsiveness), and SSL handshake time. All these contribute to the user-perceived performance."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -788,7 +788,7 @@ export const QUESTIONS = [
       "All of the above"
     ],
     "a": 3,
-    "e": "Correct Answer: **All of the above**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "Understanding monitoring metrics is critical for: enforcing vendor SLAs, understanding how and from where users request pages, and determining whether the monitoring tool mimics real human browsing patterns (like browser caching and downloading assets)."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -801,7 +801,7 @@ export const QUESTIONS = [
       "All of the above"
     ],
     "a": 3,
-    "e": "Correct Answer: **All of the above**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "When selecting and interpreting data from a monitoring service, it is critical to evaluate if it simulates actual human behavior, whether it uses browser-like caching strategies, and whether measured latency is due to network transit or backend server processing."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -814,7 +814,7 @@ export const QUESTIONS = [
       "Alertra"
     ],
     "a": 2,
-    "e": "Correct Answer: **Keynote**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "Keynote is a well-known, enterprise-level synthetic monitoring service mentioned in the text. Pingdom, SiteUptime, and Alertra are also monitoring tools, but Keynote was historically the enterprise standard referenced for synthetic measurement."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -827,7 +827,7 @@ export const QUESTIONS = [
       "Network transfer time"
     ],
     "a": 1,
-    "e": "Correct Answer: **Guaranteeing consistency**. This standard capacity planning guideline or rule of thumb dictates that **Guaranteeing consistency** is the correct answer under the given context."
+    "e": "In distributed databases, guaranteeing data consistency (ensuring all nodes have the exact same data at the same time) requires cross-node synchronization and locking protocols. According to the CAP theorem, this introduces network latency and performance penalties, affecting availability."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -840,7 +840,7 @@ export const QUESTIONS = [
       "Describe company policies"
     ],
     "a": 1,
-    "e": "Correct Answer: **Make business people comfortable and establish performance metrics**. This standard capacity planning guideline or rule of thumb dictates that **Make business people comfortable and establish performance metrics** is the correct answer under the given context."
+    "e": "In a business context, a Service Level Agreement (SLA) is primarily used to set performance and uptime metrics that ensure service quality while reassuring business stakeholders and clients of service reliability."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -853,7 +853,7 @@ export const QUESTIONS = [
       "Manage marketing efforts"
     ],
     "a": 1,
-    "e": "Correct Answer: **Guarantee availability and performance of the API**. This standard capacity planning guideline or rule of thumb dictates that **Guarantee availability and performance of the API** is the correct answer under the given context."
+    "e": "Businesses tie revenue models to API access contracts. To monetize APIs, they must guarantee high availability and consistent performance, which requires careful capacity planning to support the contracted SLA call volumes."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -866,7 +866,7 @@ export const QUESTIONS = [
       "All of the above"
     ],
     "a": 3,
-    "e": "Correct Answer: **All of the above**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "Perceived user performance is best measured by metrics like Speed Index (how fast the visible area of the page populates), Render Start (when the first visual element appears), and DOM Interactive (when the user can first interact with the page)."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -879,7 +879,7 @@ export const QUESTIONS = [
       "SOA/MSA have complex interactions between microservices"
     ],
     "a": 3,
-    "e": "Correct Answer: **SOA/MSA have complex interactions between microservices**. This standard capacity planning guideline or rule of thumb dictates that **SOA/MSA have complex interactions between microservices** is the correct answer under the given context."
+    "e": "In a monolithic architecture, all components run in a single process, making it easier to trace request flow. In Service-Oriented (SOA) or Microservices (MSA) architectures, requests traverse multiple independent microservices over the network, making root-cause latency analysis highly complex."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -892,7 +892,7 @@ export const QUESTIONS = [
       "20 calls/second"
     ],
     "a": 1,
-    "e": "Correct Answer: **10 calls/second**. This standard capacity planning guideline or rule of thumb dictates that **10 calls/second** is the correct answer under the given context."
+    "e": "The shipping-company contract example allows for a call rate of 10 calls/second. Exceeding this rate will trigger rate-limiting policies or violate the service agreement terms."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -905,7 +905,7 @@ export const QUESTIONS = [
       "mark_above_the_fold"
     ],
     "a": 2,
-    "e": "Correct Answer: **mark_page_weight**. This standard capacity planning guideline or rule of thumb dictates that **mark_page_weight** is the correct answer under the given context."
+    "e": "User Timing API standard mark names include mark_fully_loaded, mark_time_to_user_action, and mark_above_the_fold. mark_page_weight is not a standard mark name under this framework because page weight is a payload size metric, not a timing marker."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -918,7 +918,7 @@ export const QUESTIONS = [
       "When no third-party services are used"
     ],
     "a": 2,
-    "e": "Correct Answer: **At high traffic, before system-level metrics raise a flag**. This standard capacity planning guideline or rule of thumb dictates that **At high traffic, before system-level metrics raise a flag** is the correct answer under the given context."
+    "e": "Under heavy traffic, application queues, lock contention, and database connections can build up. This leads to intolerable user latency and timeout issues long before hardware-level metrics (like CPU or RAM usage) show any warning flags."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -931,7 +931,7 @@ export const QUESTIONS = [
       "Development and testing"
     ],
     "a": 1,
-    "e": "Correct Answer: **Availability and performance**. This standard capacity planning guideline or rule of thumb dictates that **Availability and performance** is the correct answer under the given context."
+    "e": "Service Level Agreements (SLAs) for web applications primarily focus on availability (uptime percentage) and performance (response time thresholds). Security and UI design are rarely covered in operational SLAs."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -944,7 +944,7 @@ export const QUESTIONS = [
       "60 minutes"
     ],
     "a": 2,
-    "e": "Correct Answer: **43.2 minutes**. A 99.9% uptime target allows up to 43.2 minutes of cumulative downtime per month."
+    "e": "A month has approximately 43,200 minutes (30 days * 24 hours * 60 minutes). Therefore, a 99.9% uptime SLA allows for 0.1% downtime, which equals exactly 43.2 minutes of allowable downtime per month."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -957,7 +957,7 @@ export const QUESTIONS = [
       "32 seconds"
     ],
     "a": 1,
-    "e": "Correct Answer: **52m 33s**. A 99.99% uptime target allows up to 52.56 minutes of cumulative downtime per year."
+    "e": "A year has 525,600 minutes. A 99.99% uptime target allows for 0.01% downtime, which translates to approximately 52.56 minutes (or 52 minutes and 33 seconds) of allowable downtime per year."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -970,7 +970,7 @@ export const QUESTIONS = [
       "Six-nines"
     ],
     "a": 2,
-    "e": "Correct Answer: **Five-nines**. Five-nines (99.999% uptime) is a high-availability standard permitting less than 5.26 minutes of downtime per year."
+    "e": "The term 'five-nines' is the standard industry slang for 99.999% availability, allowing less than 5.26 minutes of downtime per year."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -983,7 +983,7 @@ export const QUESTIONS = [
       "$3,000"
     ],
     "a": 0,
-    "e": "Correct Answer: **$30,000**. This standard capacity planning guideline or rule of thumb dictates that **$30,000** is the correct answer under the given context."
+    "e": "If a site loses $3,000/minute in sales, then 10 minutes of downtime would result in a simple direct loss of $30,000 ($3,000/minute * 10 minutes) assuming no sales are recovered."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -996,7 +996,7 @@ export const QUESTIONS = [
       "Permanent loss of all potential sales"
     ],
     "a": 2,
-    "e": "Correct Answer: **Customers pick up where they left off \u2014 minimal earnings impact**. This standard capacity planning guideline or rule of thumb dictates that **Customers pick up where they left off \u2014 minimal earnings impact** is the correct answer under the given context."
+    "e": "In reality, a brief service outage does not always mean a permanent loss of revenue. Many customers will wait, reload the page, or return later and complete their purchases once the site recovers, resulting in minimal long-term earnings impact."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1009,7 +1009,7 @@ export const QUESTIONS = [
       "Measure bandwidth capacity"
     ],
     "a": 1,
-    "e": "Correct Answer: **Indicate high availability of a site/system**. Five-nines (99.999% uptime) is a high-availability standard permitting less than 5.26 minutes of downtime per year."
+    "e": "Five-nines refers to a 99.999% uptime target. In SLA discussions, this is used to denote an extremely high-availability system that permits less than 5.26 minutes of cumulative downtime per year."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1022,7 +1022,7 @@ export const QUESTIONS = [
       "Simplify the UI"
     ],
     "a": 0,
-    "e": "Correct Answer: **Design the layout of backend pieces for capacity planning**. This standard capacity planning guideline or rule of thumb dictates that **Design the layout of backend pieces for capacity planning** is the correct answer under the given context."
+    "e": "The primary purpose of backend architecture design is to structure the layout of various backend components (caches, databases, app servers) to facilitate measurement, isolation of bottlenecks, and capacity planning."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1035,7 +1035,7 @@ export const QUESTIONS = [
       "Increase server count"
     ],
     "a": 1,
-    "e": "Correct Answer: **Facilitate measurement and rapid response to changing conditions**. This standard capacity planning guideline or rule of thumb dictates that **Facilitate measurement and rapid response to changing conditions** is the correct answer under the given context."
+    "e": "Splitting architecture into discrete tasks (modular services) allows developers to easily measure the performance and resource footprint of individual features. This enables targeted horizontal scaling and rapid responses to changing resource demands."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1048,7 +1048,7 @@ export const QUESTIONS = [
       "Eliminates need for containerization"
     ],
     "a": 1,
-    "e": "Correct Answer: **Allows quicker changes in response to bugs/feature requests**. This standard capacity planning guideline or rule of thumb dictates that **Allows quicker changes in response to bugs/feature requests** is the correct answer under the given context."
+    "e": "Microservices Architecture (MSA) breaks down applications into small, independent services. A key advantage of this modularity is that engineering teams can modify, fix bugs in, or deploy features to individual services independently and rapidly without redeploying the entire monolithic codebase."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1061,7 +1061,7 @@ export const QUESTIONS = [
       "Lower overall performance"
     ],
     "a": 1,
-    "e": "Correct Answer: **Difficulty distinguishing stats for different components**. This standard capacity planning guideline or rule of thumb dictates that **Difficulty distinguishing stats for different components** is the correct answer under the given context."
+    "e": "When web server logic and database storage run on the same physical hardware, it is extremely difficult to isolate and analyze system statistics (CPU, memory, disk I/O) for each component, making capacity planning and bottleneck identification very challenging."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1074,7 +1074,7 @@ export const QUESTIONS = [
       "Frequency of software updates"
     ],
     "a": 2,
-    "e": "Correct Answer: **Impact of increased QPS on disk, I/O wait, RAM, and CPU**. This standard capacity planning guideline or rule of thumb dictates that **Impact of increased QPS on disk, I/O wait, RAM, and CPU** is the correct answer under the given context."
+    "e": "To determine when to add capacity to a split architecture, planners monitor how increased Queries Per Second (QPS) impact system resource constraints, specifically disk I/O wait times, memory usage (RAM), and CPU utilization on individual service tiers."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1087,7 +1087,7 @@ export const QUESTIONS = [
       "Number of user reviews"
     ],
     "a": 2,
-    "e": "Correct Answer: **Requests-per-second**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "The standard metric for web server performance is the volume of HTTP requests it handles per second (Requests-per-second, or RPS). While page size and user reviews are useful for other teams, RPS is the primary capacity planning metric for web servers."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1100,7 +1100,7 @@ export const QUESTIONS = [
       "Total cost of running the system"
     ],
     "a": 1,
-    "e": "Correct Answer: **The critical resource level that can't be crossed without failure/SLA violation**. This standard capacity planning guideline or rule of thumb dictates that **The critical resource level that can't be crossed without failure/SLA violation** is the correct answer under the given context."
+    "e": "In capacity planning, the 'ceiling' refers to the maximum resource utilization threshold (e.g., 80% CPU or 70% disk I/O wait) beyond which the system starts violating performance SLAs or experiences failure."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1113,7 +1113,7 @@ export const QUESTIONS = [
       "Offer various security levels"
     ],
     "a": 2,
-    "e": "Correct Answer: **Different services exert different resource pressure**. This standard capacity planning guideline or rule of thumb dictates that **Different services exert different resource pressure** is the correct answer under the given context."
+    "e": "Different software services place varying pressure on infrastructure resources (e.g., databases are memory and disk I/O bound, while rendering services are CPU bound). Public clouds offer diverse instance types (compute-optimized, memory-optimized) to match these varying workloads."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1126,7 +1126,7 @@ export const QUESTIONS = [
       "Calculate total system cost"
     ],
     "a": 2,
-    "e": "Correct Answer: **Prevent failures/SLA violations by not exceeding resource limits**. This standard capacity planning guideline or rule of thumb dictates that **Prevent failures/SLA violations by not exceeding resource limits** is the correct answer under the given context."
+    "e": "Determining the resource ceiling for each architecture component allows engineers to configure automated alerts and scaling rules that trigger before resource limits are exceeded, thereby preventing performance degradation or SLA violations."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1139,7 +1139,7 @@ export const QUESTIONS = [
       "Simplify the UI"
     ],
     "a": 1,
-    "e": "Correct Answer: **Divide labor into smaller, independent, loosely connected units**. This standard capacity planning guideline or rule of thumb dictates that **Divide labor into smaller, independent, loosely connected units** is the correct answer under the given context."
+    "e": "The 'small pieces, loosely joined' architectural theory suggests dividing system workloads into smaller, decoupled, and independent units. This makes individual components easier to monitor, scale, and maintain without impacting the wider system."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1152,7 +1152,7 @@ export const QUESTIONS = [
       "User satisfaction rate"
     ],
     "a": 2,
-    "e": "Correct Answer: **How capacity is being used for different purposes**. This standard capacity planning guideline or rule of thumb dictates that **How capacity is being used for different purposes** is the correct answer under the given context."
+    "e": "Separating monolithic systems into discrete services allows capacity planners to trace and understand exactly how system resource capacity is being consumed by different application features."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1165,7 +1165,7 @@ export const QUESTIONS = [
       "A marketing strategy"
     ],
     "a": 2,
-    "e": "Correct Answer: **The capacity plan**. This standard capacity planning guideline or rule of thumb dictates that **The capacity plan** is the correct answer under the given context."
+    "e": "Once you have identified the resource ceilings and scaling bottlenecks for each architectural component, you can assemble the comprehensive capacity plan to project future infrastructure requirements and costs."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1178,7 +1178,7 @@ export const QUESTIONS = [
       "Reducing the number of servers"
     ],
     "a": 1,
-    "e": "Correct Answer: **Increasing resources within a single server**. Vertical scaling (scaling up) increases resources (CPU, RAM) on a single machine, which has rigid hardware limits and creates a Single Point of Failure (SPOF)."
+    "e": "Vertical scaling (scaling up) involves increasing the capacity of a single server by adding more resources, such as upgrading its CPU, RAM, or storage."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1191,7 +1191,7 @@ export const QUESTIONS = [
       "Using more powerful servers"
     ],
     "a": 2,
-    "e": "Correct Answer: **Adding more servers to share the load**. Horizontal scaling (scaling out) adds more machines/nodes to the pool, allowing easier traffic distribution and redundancy."
+    "e": "Horizontal scaling (scaling out) involves adding more servers of the same size to the resource pool and distributing incoming workload among them using a load balancer."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1204,7 +1204,7 @@ export const QUESTIONS = [
       "Combining vertical and horizontal scaling on new servers"
     ],
     "a": 0,
-    "e": "Correct Answer: **Vertically scaling horizontally scaled nodes**. Diagonal scaling scales out using larger or more powerful individual server instances, combining horizontal and vertical benefits."
+    "e": "Diagonal scaling is a hybrid approach where you horizontally scale by adding more server nodes, but you also vertically scale the individual instances within that horizontal cluster to larger types."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1217,7 +1217,7 @@ export const QUESTIONS = [
       "Lower CPU/memory utilization"
     ],
     "a": 1,
-    "e": "Correct Answer: **Higher costs and risk of a single point of failure**. Vertical scaling (scaling up) increases resources (CPU, RAM) on a single machine, which has rigid hardware limits and creates a Single Point of Failure (SPOF)."
+    "e": "Relying purely on vertical scaling is risky because a single server represents a Single Point of Failure (SPOF). Additionally, vertical scaling is limited by physical hardware limits and becomes exponentially expensive at the high end."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1230,7 +1230,7 @@ export const QUESTIONS = [
       "25"
     ],
     "a": 1,
-    "e": "Correct Answer: **18**. This standard capacity planning guideline or rule of thumb dictates that **18** is the correct answer under the given context."
+    "e": "In the Yahoo! case study, the team scaled diagonally by replacing 67 older dual-CPU machines with 18 high-performance dual-quad-core servers."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1243,7 +1243,7 @@ export const QUESTIONS = [
       "Improved security"
     ],
     "a": 2,
-    "e": "Correct Answer: **Reduced load average and power consumption**. Diagonal scaling scales out using larger or more powerful individual server instances, combining horizontal and vertical benefits."
+    "e": "In the Yahoo! case study, replacing many small servers with fewer, more powerful multi-core machines drastically reduced the overall load average, simplified management, and lowered power/cooling costs in the datacenter."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1256,7 +1256,7 @@ export const QUESTIONS = [
       "System Performance Optimization Framework"
     ],
     "a": 0,
-    "e": "Correct Answer: **Single Point of Failure**. A Single Point of Failure (SPOF) is a component whose failure brings down the entire system. High-availability architectures eliminate SPOFs."
+    "e": "SPOF stands for Single Point of Failure. In systems architecture, a SPOF is any individual component whose failure will cause the entire system to stop functioning."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1269,7 +1269,7 @@ export const QUESTIONS = [
       "Simplifies security management"
     ],
     "a": 2,
-    "e": "Correct Answer: **Handles various levels of database abstraction/distribution**. Horizontal scaling (scaling out) adds more machines/nodes to the pool, allowing easier traffic distribution and redundancy."
+    "e": "Horizontal scaling (scaling out) allows web applications to distribute workloads across a pool of servers. This makes it highly advantageous because it can handle database abstraction, storage distribution, and web traffic growth by simply adding commodity instances rather than upgrading a single massive machine."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1282,7 +1282,7 @@ export const QUESTIONS = [
       "Reducing server costs"
     ],
     "a": 1,
-    "e": "Correct Answer: **Saving business operations after a catastrophe**. Disaster Recovery (DR) plans ensure data and services can fail over to another geographical datacenter/region during a major disaster."
+    "e": "Disaster Recovery (DR) is focused on business continuity—specifically, saving and restoring business operations, data, and critical applications in the event of a catastrophic site outage or regional disaster."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1295,7 +1295,7 @@ export const QUESTIONS = [
       "Cooling outages"
     ],
     "a": 2,
-    "e": "Correct Answer: **Single server failure**. Disaster Recovery (DR) plans ensure data and services can fail over to another geographical datacenter/region during a major disaster."
+    "e": "A single server failure is a routine operational issue that should be handled automatically by local redundancy (like load balancers and auto-scaling groups). It is not considered a catastrophe that triggers a Disaster Recovery (DR) plan, which is reserved for site-wide or regional outages."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1308,7 +1308,7 @@ export const QUESTIONS = [
       "Horizontal Scaling"
     ],
     "a": 1,
-    "e": "Correct Answer: **Business Continuity Planning (BCP)**. Disaster Recovery (DR) plans ensure data and services can fail over to another geographical datacenter/region during a major disaster."
+    "e": "Disaster Recovery (DR) is a key subset of Business Continuity Planning (BCP). BCP is a broader logistical plan that ensures all aspects of a business (including people, processes, and systems) can continue operating during and after a disaster."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1321,7 +1321,7 @@ export const QUESTIONS = [
       "Reduce number of servers"
     ],
     "a": 1,
-    "e": "Correct Answer: **Deploy complete architectures in multiple physical locations**. Disaster Recovery (DR) plans ensure data and services can fail over to another geographical datacenter/region during a major disaster."
+    "e": "To ensure Disaster Recovery, organisations deploy identical, complete system architectures across multiple physical, geographically separated locations (datacenters or regions) so that one site can take over if the other fails."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1334,7 +1334,7 @@ export const QUESTIONS = [
       "Reducing network bandwidth"
     ],
     "a": 1,
-    "e": "Correct Answer: **Multiplying infrastructure costs**. Disaster Recovery (DR) plans ensure data and services can fail over to another geographical datacenter/region during a major disaster."
+    "e": "Implementing a robust DR plan requires running duplicate or redundant infrastructure in multiple locations. This leads to multiplying infrastructure costs, which is a major concern that must be balanced against business risk."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1347,7 +1347,7 @@ export const QUESTIONS = [
       "Minimize network traffic"
     ],
     "a": 2,
-    "e": "Correct Answer: **Understand resource needs and recurring patterns over time**. This standard capacity planning guideline or rule of thumb dictates that **Understand resource needs and recurring patterns over time** is the correct answer under the given context."
+    "e": "Recognizing trends in resource usage allows capacity planners to understand future resource demands, forecast growth, and identify recurring seasonal patterns (like weekly or holiday peaks) rather than reacting to short-term spikes."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1360,7 +1360,7 @@ export const QUESTIONS = [
       "Network speed"
     ],
     "a": 1,
-    "e": "Correct Answer: **Resource trends and recurring patterns**. This standard capacity planning guideline or rule of thumb dictates that **Resource trends and recurring patterns** is the correct answer under the given context."
+    "e": "Analyzing historical capacity data allows planners to identify long-term resource trends and recurring patterns (such as diurnal traffic waves or holiday spikes), which are crucial for building accurate predictive models."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1373,7 +1373,7 @@ export const QUESTIONS = [
       "Increasing network speed"
     ],
     "a": 1,
-    "e": "Correct Answer: **Using ceiling values and historical data for predictions**. This standard capacity planning guideline or rule of thumb dictates that **Using ceiling values and historical data for predictions** is the correct answer under the given context."
+    "e": "The fundamental principle of capacity planning is using resource ceiling values (the point of performance degradation) and historical usage trends to predict exactly when future workloads will exceed system limits."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1386,7 +1386,7 @@ export const QUESTIONS = [
       "Increasing storage capacity"
     ],
     "a": 1,
-    "e": "Correct Answer: **Forecasting future data from historical trends**. This standard capacity planning guideline or rule of thumb dictates that **Forecasting future data from historical trends** is the correct answer under the given context."
+    "e": "Adding a trendline to historical data in Excel allows capacity planners to project (forecast) future resource utilization based on mathematical regression of past usage patterns."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1399,7 +1399,7 @@ export const QUESTIONS = [
       "Increasing CPU performance"
     ],
     "a": 0,
-    "e": "Correct Answer: **Finding a mathematical equation that mimics the data**. This standard capacity planning guideline or rule of thumb dictates that **Finding a mathematical equation that mimics the data** is the correct answer under the given context."
+    "e": "Curve fitting is the mathematical process of finding a mathematical equation (like linear, exponential, or polynomial equations) that best fits and mimics the plotted historical data points, enabling future forecasting."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1412,7 +1412,7 @@ export const QUESTIONS = [
       "Server uptime"
     ],
     "a": 2,
-    "e": "Correct Answer: **Ratio of photos-to-users**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "Flickr used the ratio of photos-to-users as a key metric to predict database disk I/O wait times. As users upload more photos relative to active users, disk operations increase due to metadata updates and indexing workloads."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1425,7 +1425,7 @@ export const QUESTIONS = [
       "Reducing network bandwidth"
     ],
     "a": 2,
-    "e": "Correct Answer: **Sharding the database**. This standard capacity planning guideline or rule of thumb dictates that **Sharding the database** is the correct answer under the given context."
+    "e": "At Flickr, sharding the database (splitting database tables horizontally across multiple database servers based on user ID) was the key architectural change that allowed the system to scale and manage massive metadata growth."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1438,7 +1438,7 @@ export const QUESTIONS = [
       "Higher hardware costs"
     ],
     "a": 0,
-    "e": "Correct Answer: **Lack of accuracy and potential seasonal variations**. This standard capacity planning guideline or rule of thumb dictates that **Lack of accuracy and potential seasonal variations** is the correct answer under the given context."
+    "e": "Making forecasts using small datasets is highly risky because it lacks historical context. It cannot capture seasonal variations or long-term growth trends, leading to highly inaccurate capacity predictions."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1451,7 +1451,7 @@ export const QUESTIONS = [
       "Minimizing network traffic"
     ],
     "a": 1,
-    "e": "Correct Answer: **Integrating forecasts into dashboards/databases**. This standard capacity planning guideline or rule of thumb dictates that **Integrating forecasts into dashboards/databases** is the correct answer under the given context."
+    "e": "Automating forecasts using Excel macros or scripts allows capacity planners to easily integrate predictions directly into corporate dashboards, automated reporting systems, and central databases."
   },
   {
     "m": "M3: SLAs & Architecture",
@@ -1464,7 +1464,7 @@ export const QUESTIONS = [
       "Increasing network bandwidth"
     ],
     "a": 1,
-    "e": "Correct Answer: **Curve-fitting equations to arbitrary data**. This standard capacity planning guideline or rule of thumb dictates that **Curve-fitting equations to arbitrary data** is the correct answer under the given context."
+    "e": "Fityk is a specialized, open-source program designed for curve-fitting and data analysis, allowing engineers to fit complex mathematical equations to arbitrary resource datasets."
   },
   {
     "m": "M4: Procurement & Config",
@@ -1477,7 +1477,7 @@ export const QUESTIONS = [
       "The process of marketing new products"
     ],
     "a": 0,
-    "e": "Correct Answer: **The process of obtaining new capacity**. The procurement pipeline represents the time it takes to acquire and configure hardware capacity. Just-in-Time (JIT) minimizes waste by provisioning resources precisely when needed."
+    "e": "The procurement pipeline refers to the entire end-to-end process and time required to obtain new capacity, including hardware selection, approvals, purchasing, shipping, and server provisioning."
   },
   {
     "m": "M4: Procurement & Config",
@@ -1490,7 +1490,7 @@ export const QUESTIONS = [
       "Insufficient marketing strategies"
     ],
     "a": 1,
-    "e": "Correct Answer: **Long approval times for purchasing hardware**. The procurement pipeline represents the time it takes to acquire and configure hardware capacity. Just-in-Time (JIT) minimizes waste by provisioning resources precisely when needed."
+    "e": "In large organizations, bureaucratic purchasing approvals, vendor negotiations, and budget allocations often cause long approval times for hardware procurement, representing a major bottleneck for capacity scaling."
   },
   {
     "m": "M4: Procurement & Config",
@@ -1503,7 +1503,7 @@ export const QUESTIONS = [
       "Network speed"
     ],
     "a": 2,
-    "e": "Correct Answer: **Procurement time**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "Procurement time (lead time) is a critical metric to monitor because if hardware takes 6 weeks to arrive and configure, capacity planners must place orders at least 6 weeks before the system reaches its resource ceiling."
   },
   {
     "m": "M4: Procurement & Config",
@@ -1516,7 +1516,7 @@ export const QUESTIONS = [
       "Reducing the number of suppliers"
     ],
     "a": 1,
-    "e": "Correct Answer: **Ordering and stocking parts only as needed**. The procurement pipeline represents the time it takes to acquire and configure hardware capacity. Just-in-Time (JIT) minimizes waste by provisioning resources precisely when needed."
+    "e": "Just-in-Time (JIT) inventory is the practice of ordering and stocking components only when they are needed. In web operations, JIT provisioning (like on-demand cloud scaling) minimizes wasted capacity and reduces infrastructure costs."
   },
   {
     "m": "M4: Procurement & Config",
@@ -1529,7 +1529,7 @@ export const QUESTIONS = [
       "Optimize marketing efforts"
     ],
     "a": 1,
-    "e": "Correct Answer: **Ensure enough capacity when launching new products**. This standard capacity planning guideline or rule of thumb dictates that **Ensure enough capacity when launching new products** is the correct answer under the given context."
+    "e": "Startups often order servers out of fear of crashing during a launch or media event. Because they lack historical data to predict load, they over-provision to ensure enough capacity to survive peak traffic."
   },
   {
     "m": "M4: Procurement & Config",
@@ -1542,7 +1542,7 @@ export const QUESTIONS = [
       "Slowing down client response time"
     ],
     "a": 1,
-    "e": "Correct Answer: **Reducing load on database servers**. Caching keeps high-frequency data in fast-access memory, avoiding slow backend database calls and lowering overall response latency."
+    "e": "Memcached is an in-memory key-value cache. Using it reduces the load on database servers by serving high-frequency read queries directly from RAM, protecting database disks from becoming the bottleneck."
   },
   {
     "m": "M4: Procurement & Config",
@@ -1555,7 +1555,7 @@ export const QUESTIONS = [
       "Daily operational tasks"
     ],
     "a": 1,
-    "e": "Correct Answer: **Long-term decisions and site strategy**. This standard capacity planning guideline or rule of thumb dictates that **Long-term decisions and site strategy** is the correct answer under the given context."
+    "e": "Long-term traffic-pattern trends provide broad insights that inform strategic business decisions, site architecture revisions, and long-term hardware contracts, rather than immediate daily operational fixes."
   },
   {
     "m": "M4: Procurement & Config",
@@ -1568,7 +1568,7 @@ export const QUESTIONS = [
       "Peaks overnight, drops during the day"
     ],
     "a": 0,
-    "e": "Correct Answer: **Rises slowly in morning, peaks in afternoon, drops overnight**. This standard capacity planning guideline or rule of thumb dictates that **Rises slowly in morning, peaks in afternoon, drops overnight** is the correct answer under the given context."
+    "e": "A typical US-based web server sees traffic rise slowly in the morning as people wake up and start work, peak in the afternoon (during business hours), and drop to its lowest levels overnight."
   },
   {
     "m": "M4: Procurement & Config",
@@ -1581,7 +1581,7 @@ export const QUESTIONS = [
       "Reduced database query speeds"
     ],
     "a": 1,
-    "e": "Correct Answer: **Increased web server capacity issues**. Caching keeps high-frequency data in fast-access memory, avoiding slow backend database calls and lowering overall response latency."
+    "e": "Deploying Memcached handles database bottlenecks but shifts pressure to the web or application servers, which must handle increased requests and connection pools. This can lead to unexpected capacity issues on the web tier."
   },
   {
     "m": "M4: Procurement & Config",
@@ -1594,7 +1594,7 @@ export const QUESTIONS = [
       "Reduces need for tech support"
     ],
     "a": 1,
-    "e": "Correct Answer: **Provides valuable data for predicting future demand**. This standard capacity planning guideline or rule of thumb dictates that **Provides valuable data for predicting future demand** is the correct answer under the given context."
+    "e": "Understanding user behavior (such as average sessions, pages viewed, or checkout frequencies) provides capacity planners with the underlying driver metrics needed to predict future hardware demand under varying user traffic levels."
   },
   {
     "m": "M4: Procurement & Config",
@@ -1607,7 +1607,7 @@ export const QUESTIONS = [
       "Capacity planning relies only on historical data"
     ],
     "a": 2,
-    "e": "Correct Answer: **Both use data for forecasting and should align**. This standard capacity planning guideline or rule of thumb dictates that **Both use data for forecasting and should align** is the correct answer under the given context."
+    "e": "Capacity planning and product management are highly related because both use historical data and market projections to forecast future demand. They must align so that infrastructure capacity is ready before product changes launch."
   },
   {
     "m": "M4: Procurement & Config",
@@ -1620,7 +1620,7 @@ export const QUESTIONS = [
       "Avoid discussing new features"
     ],
     "a": 1,
-    "e": "Correct Answer: **Develop an ongoing conversation with product management**. This standard capacity planning guideline or rule of thumb dictates that **Develop an ongoing conversation with product management** is the correct answer under the given context."
+    "e": "Capacity planners should maintain an ongoing, collaborative conversation with product management to stay informed of upcoming feature launches, marketing campaigns, or user growth plans that will impact server load."
   },
   {
     "m": "M4: Procurement & Config",
@@ -1633,7 +1633,7 @@ export const QUESTIONS = [
       "Annually"
     ],
     "a": 2,
-    "e": "Correct Answer: **Weekly or even daily**. This standard capacity planning guideline or rule of thumb dictates that **Weekly or even daily** is the correct answer under the given context."
+    "e": "Resource usage and user behaviors can shift rapidly. Forecasts should be reviewed weekly or even daily to detect anomalies, track progress against ceilings, and adjust procurement timelines."
   },
   {
     "m": "M4: Procurement & Config",
@@ -1646,7 +1646,7 @@ export const QUESTIONS = [
       "Focus only on software improvements"
     ],
     "a": 1,
-    "e": "Correct Answer: **Update the metric used to determine the ceiling**. This standard capacity planning guideline or rule of thumb dictates that **Update the metric used to determine the ceiling** is the correct answer under the given context."
+    "e": "When hardware limitations change (e.g., upgrading to faster CPUs or SSDs), the old capacity ceilings are no longer valid. Planners must update the metrics and resource thresholds used to determine the system's capacity ceiling."
   },
   {
     "m": "M4: Procurement & Config",
@@ -1659,7 +1659,7 @@ export const QUESTIONS = [
       "Decreased usage during Nov/Dec holidays"
     ],
     "a": 2,
-    "e": "Correct Answer: **Increased usage at the start of college in fall**. This standard capacity planning guideline or rule of thumb dictates that **Increased usage at the start of college in fall** is the correct answer under the given context."
+    "e": "The text references seasonal variations in traffic, specifically noting increased internet and service usage at the start of college in the fall, which planners must anticipate."
   },
   {
     "m": "M4: Procurement & Config",
@@ -1672,7 +1672,7 @@ export const QUESTIONS = [
       "Reduce need for hardware upgrades"
     ],
     "a": 2,
-    "e": "Correct Answer: **Influence how wide or narrow the forecasting window should be**. This standard capacity planning guideline or rule of thumb dictates that **Influence how wide or narrow the forecasting window should be** is the correct answer under the given context."
+    "e": "Seasonal variations influence how wide or narrow the forecasting window should be. Planners need a wide enough window (e.g., a full year) to capture holiday or fall-start seasonal surges, otherwise their projections will be skewed."
   },
   {
     "m": "M4: Procurement & Config",
@@ -1685,7 +1685,7 @@ export const QUESTIONS = [
       "Decentralize configuration management"
     ],
     "a": 1,
-    "e": "Correct Answer: **Minimize time to provision new capacity**. This standard capacity planning guideline or rule of thumb dictates that **Minimize time to provision new capacity** is the correct answer under the given context."
+    "e": "A primary goal of automated deployment and configuration tools (like Ansible, Chef, or Puppet) is to minimize the time to provision new capacity, allowing teams to scale up rapidly when capacity thresholds are breached."
   },
   {
     "m": "M4: Procurement & Config",
@@ -1698,7 +1698,7 @@ export const QUESTIONS = [
       "Allows multiple servers to run config tasks independently"
     ],
     "a": 1,
-    "e": "Correct Answer: **Makes replication and backup of files easier**. This standard capacity planning guideline or rule of thumb dictates that **Makes replication and backup of files easier** is the correct answer under the given context."
+    "e": "A centralized configuration management system makes replication, backups, auditing, and version control of configuration files far easier because all changes are managed in a single, authoritative repository."
   },
   {
     "m": "M4: Procurement & Config",
@@ -1711,7 +1711,7 @@ export const QUESTIONS = [
       "Perform config changes directly on individual servers"
     ],
     "a": 1,
-    "e": "Correct Answer: **New servers automatically start working without admin intervention**. This standard capacity planning guideline or rule of thumb dictates that **New servers automatically start working without admin intervention** is the correct answer under the given context."
+    "e": "The 'holy grail' of deployment systems is zero-touch provisioning: a state where new physical or virtual servers automatically bootstrap, configure themselves, and join the active pool without manual administrative intervention."
   },
   {
     "m": "M4: Procurement & Config",
@@ -1724,7 +1724,7 @@ export const QUESTIONS = [
       "Eliminates need for centralized management"
     ],
     "a": 1,
-    "e": "Correct Answer: **Limits performance optimization**. This standard capacity planning guideline or rule of thumb dictates that **Limits performance optimization** is the correct answer under the given context."
+    "e": "Having disparate software configurations across cluster nodes limits performance optimization and complicates debugging. Standardized node environments are essential for predictable scaling and tuning."
   },
   {
     "m": "M4: Procurement & Config",
@@ -1737,7 +1737,7 @@ export const QUESTIONS = [
       "More complex to manage"
     ],
     "a": 1,
-    "e": "Correct Answer: **Faster installation process**. This standard capacity planning guideline or rule of thumb dictates that **Faster installation process** is the correct answer under the given context."
+    "e": "An advantage of image-based OS deployment (like copying a gold master disk image) is a much faster installation process compared to package-by-package installations from a repository."
   },
   {
     "m": "M4: Procurement & Config",
@@ -1750,7 +1750,7 @@ export const QUESTIONS = [
       "Template for root volume and app servers only"
     ],
     "a": 2,
-    "e": "Correct Answer: **Template for root volume, launch permissions, and block device mapping**. This standard capacity planning guideline or rule of thumb dictates that **Template for root volume, launch permissions, and block device mapping** is the correct answer under the given context."
+    "e": "An Amazon Machine Image (AMI) includes the template for the root volume (OS, app server, software), launch permissions that control which AWS accounts can use the AMI, and block device mappings."
   },
   {
     "m": "M4: Procurement & Config",
@@ -1763,7 +1763,7 @@ export const QUESTIONS = [
       "Store all configurations locally"
     ],
     "a": 1,
-    "e": "Correct Answer: **Periodically poll the server for new configurations**. This standard capacity planning guideline or rule of thumb dictates that **Periodically poll the server for new configurations** is the correct answer under the given context."
+    "e": "In agent-based configuration systems (like Puppet or Chef client), the client daemon runs on the target node and periodically polls the central server for new configurations, applying updates locally."
   },
   {
     "m": "M4: Procurement & Config",
@@ -1776,7 +1776,7 @@ export const QUESTIONS = [
       "A temporary testing setting"
     ],
     "a": 0,
-    "e": "Correct Answer: **A particular type of machine performing a specific task**. This standard capacity planning guideline or rule of thumb dictates that **A particular type of machine performing a specific task** is the correct answer under the given context."
+    "e": "In configuration management, a 'role' describes a particular type of machine performing a specific logical task (e.g., a database role, a web server role, or a caching role)."
   },
   {
     "m": "M4: Procurement & Config",
@@ -1789,7 +1789,7 @@ export const QUESTIONS = [
       "Avoid using common configurations"
     ],
     "a": 1,
-    "e": "Correct Answer: **Simplify deploying new roles by reusing existing configurations**. This standard capacity planning guideline or rule of thumb dictates that **Simplify deploying new roles by reusing existing configurations** is the correct answer under the given context."
+    "e": "Identifying services common to multiple roles (like logging or monitoring daemons) simplifies configuration reuse, making it easier to define and deploy new roles by building on existing config blocks."
   },
   {
     "m": "M5: Virtualization & Cloud",
@@ -1802,7 +1802,7 @@ export const QUESTIONS = [
       "Simplified network configurations"
     ],
     "a": 2,
-    "e": "Correct Answer: **Efficient resource utilization**. This standard capacity planning guideline or rule of thumb dictates that **Efficient resource utilization** is the correct answer under the given context."
+    "e": "Server virtualization allows multiple virtual machines (VMs) to share the same physical server. This leads to highly efficient resource utilization, as multiple underutilized workloads are consolidated onto a single machine."
   },
   {
     "m": "M5: Virtualization & Cloud",
@@ -1815,7 +1815,7 @@ export const QUESTIONS = [
       "Reduced power consumption"
     ],
     "a": 2,
-    "e": "Correct Answer: **Fault tolerance and hardware-failure resilience**. This standard capacity planning guideline or rule of thumb dictates that **Fault tolerance and hardware-failure resilience** is the correct answer under the given context."
+    "e": "Migrating guest OS instances between physical hosts (e.g., VM live migration) provides fault tolerance and hardware-failure resilience, allowing physical servers to be serviced without application downtime."
   },
   {
     "m": "M5: Virtualization & Cloud",
@@ -1828,7 +1828,7 @@ export const QUESTIONS = [
       "They provide stronger isolation between apps"
     ],
     "a": 2,
-    "e": "Correct Answer: **They share the host OS kernel for running applications**. This standard capacity planning guideline or rule of thumb dictates that **They share the host OS kernel for running applications** is the correct answer under the given context."
+    "e": "Containers are highly efficient compared to VMs because they share the host OS kernel and isolate application processes, avoiding the heavy memory and CPU overhead of running a full guest OS for each application."
   },
   {
     "m": "M5: Virtualization & Cloud",
@@ -1841,7 +1841,7 @@ export const QUESTIONS = [
       "Increased power consumption"
     ],
     "a": 0,
-    "e": "Correct Answer: **Complicated metric collection**. This standard capacity planning guideline or rule of thumb dictates that **Complicated metric collection** is the correct answer under the given context."
+    "e": "A major disadvantage of virtualization for capacity planning is that it complicates metric collection. The hypervisor layer obscures direct hardware access, making it hard to measure true CPU, disk I/O, or memory contention."
   },
   {
     "m": "M5: Virtualization & Cloud",
@@ -1854,7 +1854,7 @@ export const QUESTIONS = [
       "Containers run processes directly on the host OS without a hypervisor"
     ],
     "a": 3,
-    "e": "Correct Answer: **Containers run processes directly on the host OS without a hypervisor**. This standard capacity planning guideline or rule of thumb dictates that **Containers run processes directly on the host OS without a hypervisor** is the correct answer under the given context."
+    "e": "Containers run processes directly on the host OS kernel without a hypervisor, consuming significantly fewer resources than VMs, which run complete guest OS instances on top of a hypervisor."
   },
   {
     "m": "M5: Virtualization & Cloud",
@@ -1867,7 +1867,7 @@ export const QUESTIONS = [
       "Container scalability"
     ],
     "a": 1,
-    "e": "Correct Answer: **Performance isolation**. This standard capacity planning guideline or rule of thumb dictates that **Performance isolation** is the correct answer under the given context."
+    "e": "Dedicated hardware instances in public clouds address the challenge of performance isolation. They ensure that a customer's workload is isolated on a physical host, preventing 'noisy neighbors' from degrading performance."
   },
   {
     "m": "M5: Virtualization & Cloud",
@@ -1880,7 +1880,7 @@ export const QUESTIONS = [
       "Reduced instance diversity"
     ],
     "a": 2,
-    "e": "Correct Answer: **Resource contention across customers**. This standard capacity planning guideline or rule of thumb dictates that **Resource contention across customers** is the correct answer under the given context."
+    "e": "Performance variations in public cloud instances are largely caused by resource contention (CPU steal time, disk I/O bottlenecks) from other customers sharing the same physical hardware."
   },
   {
     "m": "M5: Virtualization & Cloud",
@@ -1893,7 +1893,7 @@ export const QUESTIONS = [
       "Containers are less dependent on underlying hardware"
     ],
     "a": 3,
-    "e": "Correct Answer: **Containers are less dependent on underlying hardware**. This standard capacity planning guideline or rule of thumb dictates that **Containers are less dependent on underlying hardware** is the correct answer under the given context."
+    "e": "Containers are highly portable because they package the application and all its dependencies, making them less dependent on the underlying hardware or hypervisor version compared to virtual machines."
   },
   {
     "m": "M5: Virtualization & Cloud",
@@ -1906,7 +1906,7 @@ export const QUESTIONS = [
       "Software-as-a-Server"
     ],
     "a": 2,
-    "e": "Correct Answer: **Software-as-a-Service**. This standard capacity planning guideline or rule of thumb dictates that **Software-as-a-Service** is the correct answer under the given context."
+    "e": "Software-as-a-Service (SaaS) is a type of cloud computing service where users access software applications over the internet without managing the underlying infrastructure."
   },
   {
     "m": "M5: Virtualization & Cloud",
@@ -1919,7 +1919,7 @@ export const QUESTIONS = [
       "Both A and B"
     ],
     "a": 1,
-    "e": "Correct Answer: **Frontend**. This standard capacity planning guideline or rule of thumb dictates that **Frontend** is the correct answer under the given context."
+    "e": "In a cloud computing model, the client interaction resides on the frontend (e.g., browser or mobile client), which communicates with the backend services hosted in the cloud."
   },
   {
     "m": "M5: Virtualization & Cloud",
@@ -1932,7 +1932,7 @@ export const QUESTIONS = [
       "Multiplexing"
     ],
     "a": 2,
-    "e": "Correct Answer: **Virtualization**. This standard capacity planning guideline or rule of thumb dictates that **Virtualization** is the correct answer under the given context."
+    "e": "Cloud computing is fundamentally based on virtualization, which abstracts physical hardware into poolable, dynamically allocatable virtual resources."
   },
   {
     "m": "M5: Virtualization & Cloud",
@@ -1943,7 +1943,7 @@ export const QUESTIONS = [
       "False"
     ],
     "a": 0,
-    "e": "Correct Answer: **True**. This standard capacity planning guideline or rule of thumb dictates that **True** is the correct answer under the given context."
+    "e": "Google Docs is a type of cloud computing (specifically SaaS) because the application logic and document storage run on Google's cloud servers, accessed via web browser interfaces."
   },
   {
     "m": "M5: Virtualization & Cloud",
@@ -1956,7 +1956,7 @@ export const QUESTIONS = [
       "Resource Utilization"
     ],
     "a": 3,
-    "e": "Correct Answer: **Resource Utilization**. This standard capacity planning guideline or rule of thumb dictates that **Resource Utilization** is the correct answer under the given context."
+    "e": "World-class security, disaster recovery, and high availability are core operational pillars of cloud platforms. Resource utilization is an internal efficiency concern, not a building block/service guarantee for customers."
   },
   {
     "m": "M5: Virtualization & Cloud",
@@ -1969,7 +1969,7 @@ export const QUESTIONS = [
       "All of the above"
     ],
     "a": 1,
-    "e": "Correct Answer: **Hybrid**. This standard capacity planning guideline or rule of thumb dictates that **Hybrid** is the correct answer under the given context."
+    "e": "A hybrid cloud environment combines a private cloud (on-premises resources) with a public cloud (external resources), allowing data and applications to be shared between them."
   },
   {
     "m": "M5: Virtualization & Cloud",
@@ -1982,7 +1982,7 @@ export const QUESTIONS = [
       "Service Level Assignments"
     ],
     "a": 1,
-    "e": "Correct Answer: **Service Level Agreements**. This standard capacity planning guideline or rule of thumb dictates that **Service Level Agreements** is the correct answer under the given context."
+    "e": "SLA stands for Service Level Agreement, which is a formal contract between a service provider and a customer specifying expected service levels (uptime, latency, throughput)."
   },
   {
     "m": "M5: Virtualization & Cloud",
@@ -1995,7 +1995,7 @@ export const QUESTIONS = [
       "All of the mentioned"
     ],
     "a": 1,
-    "e": "Correct Answer: **Hadoop**. This standard capacity planning guideline or rule of thumb dictates that **Hadoop** is the correct answer under the given context."
+    "e": "Hadoop is a framework for distributed storage and processing. In the text, it is referenced as a specific cloud offering for processing large scale data workloads."
   },
   {
     "m": "M5: Virtualization & Cloud",
@@ -2008,7 +2008,7 @@ export const QUESTIONS = [
       "All of the above"
     ],
     "a": 3,
-    "e": "Correct Answer: **All of the above**. This standard capacity planning guideline or rule of thumb dictates that **All of the above** is the correct answer under the given context."
+    "e": "SaaS (Software-as-a-Service), PaaS (Platform-as-a-Service), and IaaS (Infrastructure-as-a-Service) represent the three core service models of cloud computing, collectively describing different levels of user management."
   },
   {
     "m": "M5: Virtualization & Cloud",
@@ -2021,7 +2021,7 @@ export const QUESTIONS = [
       "None of the mentioned"
     ],
     "a": 2,
-    "e": "Correct Answer: **Privacy**. This standard capacity planning guideline or rule of thumb dictates that **Privacy** is the correct answer under the given context."
+    "e": "You cannot guarantee your data privacy in the face of government actions (like subpoenas or national security letters) when relying on a public cloud provider, as the physical infrastructure is managed by a third party."
   },
   {
     "m": "M5: Virtualization & Cloud",
@@ -2034,7 +2034,7 @@ export const QUESTIONS = [
       "IaaS"
     ],
     "a": 3,
-    "e": "Correct Answer: **IaaS**. This standard capacity planning guideline or rule of thumb dictates that **IaaS** is the correct answer under the given context."
+    "e": "Infrastructure-as-a-Service (IaaS) providers (like AWS EC2 or Google Compute Engine) leverage virtual machine technology to deliver raw computing instances, storage, and networking over the internet."
   },
   {
     "m": "M5: Virtualization & Cloud",
@@ -2047,7 +2047,7 @@ export const QUESTIONS = [
       "Productivity and reliability"
     ],
     "a": 2,
-    "e": "Correct Answer: **Abstraction**. This standard capacity planning guideline or rule of thumb dictates that **Abstraction** is the correct answer under the given context."
+    "e": "Abstraction is a key concept of cloud computing. By abstracting the complex underlying physical hardware, networks, and storage systems, the cloud provides users with simple, virtualized APIs and interfaces."
   },
   {
     "m": "M5: Virtualization & Cloud",
@@ -2060,7 +2060,7 @@ export const QUESTIONS = [
       "All of the mentioned"
     ],
     "a": 1,
-    "e": "Correct Answer: **AWS**. This standard capacity planning guideline or rule of thumb dictates that **AWS** is the correct answer under the given context."
+    "e": "Amazon Web Services (AWS) is Amazon's comprehensive, market-leading cloud computing platform, offering over 200 fully featured services from data centers globally."
   },
   {
     "m": "M5: Virtualization & Cloud",
@@ -2073,7 +2073,7 @@ export const QUESTIONS = [
       "All of the above"
     ],
     "a": 3,
-    "e": "Correct Answer: **All of the above**. This standard capacity planning guideline or rule of thumb dictates that **All of the above** is the correct answer under the given context."
+    "e": "Cloud computing is uniquely characterized by its utility-type delivery (pay-as-you-go), rapid elasticity (on-demand scaling), and low barrier to entry (no upfront capital expenditure)."
   },
   {
     "m": "Bonus: Beyond the source",
@@ -2086,7 +2086,7 @@ export const QUESTIONS = [
       "Uptime, downtime, MTTR"
     ],
     "a": 1,
-    "e": "Correct Answer: **Average number in system, arrival rate, average time in system**. Little's Law defines the relationship between concurrency (L), throughput/arrival rate (\u03bb), and latency/time in system (W): L = \u03bb * W."
+    "e": "Little's Law is a fundamental queuing theory equation stating that the average number of items in a system (L) equals the average arrival rate (lambda) multiplied by the average time an item spends in the system (W)."
   },
   {
     "m": "Bonus: Beyond the source",
@@ -2099,7 +2099,7 @@ export const QUESTIONS = [
       "Cache eviction policy tradeoffs"
     ],
     "a": 0,
-    "e": "Correct Answer: **The theoretical speedup limit from parallelizing part of a workload**. Amdahl's Law models the potential speedup of a system when running parallel tasks, showing that the non-parallelizable serial parts act as a bottleneck."
+    "e": "Amdahl's Law is used to calculate the maximum theoretical speedup improvement of a system when only a part of it is parallelized. It proves that the serial (non-parallel) portion of any workload acts as the ultimate bottleneck."
   },
   {
     "m": "Bonus: Beyond the source",
@@ -2112,7 +2112,7 @@ export const QUESTIONS = [
       "Test failover between data centers"
     ],
     "a": 1,
-    "e": "Correct Answer: **Detect memory leaks/degradation under sustained normal load over time**. This standard capacity planning guideline or rule of thumb dictates that **Detect memory leaks/degradation under sustained normal load over time** is the correct answer under the given context."
+    "e": "A soak test (or endurance test) is a load testing practice where a system is subjected to a sustained normal or high workload over an extended period. This is primarily designed to detect memory leaks, resource exhaustion, or gradual performance degradation over time."
   },
   {
     "m": "Bonus: Beyond the source",
@@ -2125,7 +2125,7 @@ export const QUESTIONS = [
       "Config management rollback"
     ],
     "a": 0,
-    "e": "Correct Answer: **System behavior under a sudden, sharp increase in load**. This standard capacity planning guideline or rule of thumb dictates that **System behavior under a sudden, sharp increase in load** is the correct answer under the given context."
+    "e": "A spike test is a load test designed to evaluate system stability and recovery by sending a sudden, dramatic increase in traffic, measuring how well the auto-scalers and load balancers absorb the surge."
   },
   {
     "m": "Bonus: Beyond the source",
@@ -2138,7 +2138,7 @@ export const QUESTIONS = [
       "Throughput, hit ratio, ceiling, SPOF"
     ],
     "a": 1,
-    "e": "Correct Answer: **Latency, traffic, errors, saturation**. Monitoring daemons (like collectd) gather system metrics and store them in time-series formats (such as RRDTool) to alert administrators and forecast capacity trends."
+    "e": "The four 'golden signals' in SRE (Site Reliability Engineering) are Latency (time to serve a request), Traffic (demand/throughput), Errors (rate of failed requests), and Saturation (how full the most constrained resource is)."
   },
   {
     "m": "Bonus: Beyond the source",
@@ -2151,7 +2151,7 @@ export const QUESTIONS = [
       "The interval between forecast reviews"
     ],
     "a": 0,
-    "e": "Correct Answer: **The gap between current usage and the defined ceiling, reserved for spikes/growth**. This standard capacity planning guideline or rule of thumb dictates that **The gap between current usage and the defined ceiling, reserved for spikes/growth** is the correct answer under the given context."
+    "e": "Capacity headroom (or capacity buffer) is the difference between current resource utilization and the absolute ceiling. Maintaining headroom is essential to absorb sudden traffic spikes or allow time for new servers to be provisioned."
   },
   {
     "m": "Bonus: Beyond the source",
@@ -2164,7 +2164,7 @@ export const QUESTIONS = [
       "A load-testing technique for databases"
     ],
     "a": 0,
-    "e": "Correct Answer: **Rolling a new version out to a small subset of traffic/servers before full rollout**. This standard capacity planning guideline or rule of thumb dictates that **Rolling a new version out to a small subset of traffic/servers before full rollout** is the correct answer under the given context."
+    "e": "A canary deployment involves rolling out a new software version to a tiny subset of production servers or users first. Planners monitor this subset for errors before deploying the update to the rest of the infrastructure."
   },
   {
     "m": "Bonus: Beyond the source",
@@ -2177,7 +2177,7 @@ export const QUESTIONS = [
       "Sharding a database"
     ],
     "a": 0,
-    "e": "Correct Answer: **Near-zero-downtime releases by switching traffic between two environments**. This standard capacity planning guideline or rule of thumb dictates that **Near-zero-downtime releases by switching traffic between two environments** is the correct answer under the given context."
+    "e": "Blue-green deployment is a zero-downtime release strategy using two identical production environments. The 'green' environment runs the new code while the 'blue' environment handles active production traffic. Once verified, the router instantly switches traffic to green."
   },
   {
     "m": "Bonus: Beyond the source",
@@ -2190,7 +2190,7 @@ export const QUESTIONS = [
       "Sharding is only used for caching, replication only for backups"
     ],
     "a": 0,
-    "e": "Correct Answer: **Sharding splits data across nodes by key; replication copies the same data across nodes**. Sharding partitions database records horizontally across multiple servers, distributing read/write loads and bypassing single-instance storage ceilings."
+    "e": "Database sharding partitions database records horizontally across multiple physical servers based on a shard key, distributing the overall read/write workload. Replication, on the other hand, copies the entire database across nodes to achieve high availability and read scalability."
   },
   {
     "m": "Bonus: Beyond the source",
@@ -2203,7 +2203,7 @@ export const QUESTIONS = [
       "A procurement pipeline step"
     ],
     "a": 0,
-    "e": "Correct Answer: **Reactive/metric-based scaling**. This standard capacity planning guideline or rule of thumb dictates that **Reactive/metric-based scaling** is the correct answer under the given context."
+    "e": "Autoscaling policies triggered by real-time metric thresholds (such as CPU utilization exceeding 80%) are reactive scaling mechanisms, adjusting capacity on-demand in response to active resource pressure."
   },
   {
     "m": "Bonus: Beyond the source",
@@ -2216,7 +2216,7 @@ export const QUESTIONS = [
       "An SLA violation notice"
     ],
     "a": 0,
-    "e": "Correct Answer: **A co-located tenant consuming shared resources and degrading your performance**. Noisy neighbors are co-located virtual instances in a shared cloud hypervisor that consume excessive resources, degrading the performance of other tenants."
+    "e": "A 'noisy neighbor' refers to a multi-tenant cloud scenario where one virtual machine on a shared hypervisor consumes excessive CPU, memory, or disk I/O, degrading the performance of other co-located tenant VMs."
   },
   {
     "m": "Bonus: Beyond the source",
@@ -2229,6 +2229,6 @@ export const QUESTIONS = [
       "Caching, Aggregation, Partitioning"
     ],
     "a": 0,
-    "e": "Correct Answer: **Consistency, Availability, Partition tolerance**. The CAP theorem states that a distributed system can only guarantee two out of Consistency, Availability, and Partition Tolerance simultaneously."
+    "e": "The CAP theorem states that a distributed data store can simultaneously guarantee at most two of three properties: Consistency (all nodes see the same data at the same time), Availability (every request receives a non-error response), and Partition Tolerance (the system continues to operate despite network partition errors)."
   }
 ];
